@@ -1,0 +1,2427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benelli Perú · Manos al Horno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Shadows+Into+Light&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-navy: #071b3b;
+      --brand-blue: #163861;
+      --brand-beige: #ddc9a0;
+      --brand-warm: #f0e8d6;
+      --brand-silver: #f5f4f1;
+      --brand-white: #ffffff;
+      --white: var(--brand-white);
+      --brand-gray: #7a8190;
+      --brand-dark: #1d304f;
+      --brand-gold: #c9a55d;
+      --brand-gold-dark: #a38243;
+      --navy: var(--brand-navy);
+      --navy-light: #2e4c7c;
+      --cream: var(--brand-warm);
+      --cream-dark: #e4d7c2;
+      --terra: var(--brand-gold);
+      --gold: var(--brand-gold);
+      --gold-dark: var(--brand-gold-dark);
+      --card-bg: #ffffff;
+      --text-dark: #10213d;
+      --text-mid: #576275;
+      --text-light: #7e8899;
+      --shadow-sm: 0 6px 18px rgba(15, 31, 61, 0.08);
+      --shadow-md: 0 10px 32px rgba(15, 31, 61, 0.12);
+      --shadow-lg: 0 18px 52px rgba(15, 31, 61, 0.18);
+      --radius: 18px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, var(--brand-silver) 0%, var(--cream) 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── BLOQUEO DE SCROLL MIENTRAS CARGA ────────────────────────── */
+    body.loading { overflow: hidden; }
+
+    /* ─── SPLASH SCREEN COLLAGE RENACENTISTA ──────────────────────── */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1.2s ease, visibility 1.2s ease;
+      background: var(--navy);
+      overflow: hidden;
+    }
+    #splash-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .splash-collage {
+      position: absolute;
+      top: -10%; bottom: -10%;
+      left: -10%; right: -10%;
+      display: flex;
+    }
+    .splash-slice {
+      flex: 1;
+      position: relative;
+      transform: skewX(-15deg);
+      border-right: 3px solid var(--gold);
+      box-shadow: 20px 0 40px rgba(0,0,0,0.9);
+      overflow: hidden;
+      z-index: 1;
+    }
+    .splash-slice:last-child {
+      border-right: none;
+      box-shadow: none;
+    }
+    .splash-bg {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: -50%; right: -50%; 
+      transform: skewX(15deg);
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.65) contrast(1.25) sepia(0.25);
+    }
+    .bg-1 { background-image: url('https://rauletti.com/725-home_default/torta-moka.jpg'); }
+    .bg-2 { background-image: url('https://www.recetasnestle.com.pe/sites/default/files/2023-03/bd-postre-en-vaso-dulce-leche.jpg.jpg'); }
+    .bg-3 { background-image: url('https://www.puratos.pe/content/dam/peru/images/2024/web/FE%20Buns%20Plain-600x600.jpeg/jcr%3Acontent/renditions/cq5dam.web.1280.1280.webp'); }
+    .bg-4 { background-image: url('https://pastelerialaforesta.com/wp-content/uploads/2019/11/bocaditos.jpg'); }
+
+    .splash-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(15,20,30,0.95) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .splash-frame {
+      z-index: 3;
+      background: rgba(7, 27, 59, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 60px 80px;
+      border: 1px solid rgba(201, 168, 76, 0.22);
+      position: relative;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.85);
+    }
+    .splash-frame::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 28px;
+      background: radial-gradient(circle, rgba(201,168,76,.28) 0%, rgba(201,168,76,0.02) 55%, transparent 80%);
+      filter: blur(16px);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .splash-frame::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 24px;
+      border: 1px solid rgba(201,168,76,.33);
+      opacity: 0.65;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .splash-logo {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,168,76,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 48px; color: var(--brand-gold);
+      margin: 0 auto 24px;
+      position: relative;
+      box-shadow: inset 0 0 22px rgba(255,255,255,0.08), 0 0 30px rgba(201,168,76,0.32);
+    }
+    .splash-logo::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.45) 0%, rgba(201,168,76,0.08) 35%, transparent 65%);
+      filter: blur(12px);
+      z-index: -1;
+    }
+    .splash-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 700; color: var(--white);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+    }
+    .splash-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 12px; font-style: italic; color: var(--gold);
+      letter-spacing: 6px; text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .splash-loader {
+      width: 46px; height: 46px;
+      border: 1px solid rgba(201,168,76,.15);
+      border-top-color: var(--gold);
+      border-bottom-color: var(--gold);
+      border-radius: 50%;
+      animation: spinSplash 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+      margin: 0 auto;
+    }
+    @keyframes spinSplash { to { transform: rotate(360deg); } }
+
+    /* ─── NAV ─────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(16, 33, 61, .08);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--brand-navy); display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--white); flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .nav-name { display: flex; flex-direction: column; line-height: 1.2; }
+    .nav-name strong { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--brand-dark); font-weight: 700; }
+    .nav-name span { font-size: 11px; color: var(--brand-gold); letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 14px; font-weight: 600; color: var(--text-dark); transition: color .2s, border-bottom .2s; padding-bottom: 4px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--brand-navy); border-bottom: 2px solid var(--brand-gold); }
+    .nav-cart {
+      background: none; border: none; cursor: pointer; color: var(--brand-dark); font-size: 20px; padding: 6px; position: relative;
+    }
+    .cart-badge {
+      position: absolute; top: 0; right: 0; background: var(--terra); color: #fff;
+      border-radius: 50%; width: 16px; height: 16px; font-size: 10px; display: flex; align-items: center; justify-content: center;
+    }
+
+    .cart-panel {
+      position: fixed; top: 0; right: 0; width: min(380px, 100%); height: 100%; background: var(--brand-white); box-shadow: -18px 0 45px rgba(15,31,61,.18); transform: translateX(110%); transition: transform .35s ease;
+      z-index: 300; display: flex; flex-direction: column; padding: 0; overflow: hidden;
+    }
+    .cart-panel.open { transform: translateX(0); }
+    .cart-panel-inner { display: flex; flex-direction: column; height: 100%; }
+    .cart-panel-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 28px 24px 18px; background: var(--navy); color: var(--white); }
+    .cart-panel-header h3 { margin: 0; font-family: 'Playfair Display', serif; font-size: 24px; line-height: 1.1; }
+    .cart-panel-header .section-eyebrow { color: rgba(255,255,255,.75); margin-bottom: 8px; }
+    .cart-close { border: none; background: rgba(255,255,255,.12); color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; line-height: 1; cursor: pointer; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 22px 24px 0; display: grid; gap: 18px; }
+    .cart-empty { color: var(--text-mid); font-size: 14px; line-height: 1.7; padding: 14px 0; }
+    .cart-item { background: #f8f5ef; border-radius: 16px; padding: 16px; display: grid; gap: 10px; }
+    .cart-item h4 { margin: 0; font-size: 16px; color: var(--navy); }
+    .cart-item span { display: inline-flex; justify-content: space-between; width: 100%; color: var(--text-mid); font-size: 14px; }
+    .cart-item small { color: var(--text-light); }
+    .cart-summary { padding: 22px 24px 28px; border-top: 1px solid rgba(28,43,74,.08); background: #fff; }
+    .cart-summary div { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; font-size: 16px; color: var(--navy); }
+    .cart-summary strong { font-size: 20px; }
+    .cart-summary .cart-note { font-size: 12px; color: var(--text-light); margin: 12px 0 0; }
+    .cart-actions { display: grid; gap: 10px; margin-top: 14px; }
+    .btn-soft {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3efe5;
+      color: var(--navy);
+      border: 1px solid rgba(28,43,74,.15);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .btn-soft:hover { background: #ebe4d4; transform: translateY(-1px); }
+    .payment-status { margin-top: 8px; font-size: 12px; color: var(--text-light); min-height: 16px; }
+    .cart-backdrop { position: fixed; inset: 0; background: rgba(7,27,59,.45); opacity: 0; visibility: hidden; transition: opacity .25s ease; z-index: 250; }
+    .cart-backdrop.visible { opacity: 1; visibility: visible; }
+
+    .disabled { opacity: .45; pointer-events: none; }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    #hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(28,43,74,.72) 0%, rgba(28,43,74,.38) 55%, rgba(181,82,42,.22) 100%),
+        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1800&q=85&fit=crop') center/cover no-repeat;
+    }
+    .hero-grain {
+      position: absolute; inset: 0; opacity: .4; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; padding: 120px 5% 80px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,.18); border: 1px solid rgba(201,168,76,.4); border-radius: 100px; padding: 6px 16px; margin-bottom: 24px; }
+    .hero-eyebrow span { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(38px, 5.5vw, 68px); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 20px; }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: clamp(15px, 1.8vw, 18px); color: rgba(255,255,255,.78); max-width: 480px; line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius-sm); padding: 15px 28px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 20px rgba(201,168,76,.4); }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,.5); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 10px; background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,.55); border-radius: var(--radius-sm); padding: 14px 28px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: background .2s, border-color .2s, transform .15s; }
+    .btn-outline:hover { background: rgba(255,255,255,.1); border-color: #fff; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+    .hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,.5); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; animation: scrollBounce 2.2s ease-in-out infinite; }
+    .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,.4), transparent); }
+    @keyframes scrollBounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+    /* ─── CARTA / TORTAS ───────────────────────────────────────────── */
+    #carta { padding: 96px 5% 40px; }
+    .carta-nav { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 0 auto 28px; max-width: 760px; }
+    .carta-nav button {
+      border: 1px solid rgba(28,43,74,.15); background: var(--white); color: var(--text-mid);
+      padding: 10px 16px; border-radius: 999px; cursor: pointer; font-weight: 600; transition: all .2s ease;
+    }
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--navy);
+      border: 1px solid rgba(28,43,74,.15);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+    }
+    .back-button:hover {
+      background: rgba(22,56,97,.05);
+      border-color: rgba(22,56,97,.2);
+    }
+    .carta-nav button.active, .carta-nav button:hover {
+      background: var(--navy); color: var(--white); border-color: var(--navy);
+    }
+    .carta-layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; align-items: start; }
+    .carta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; align-items: start; }
+    .carta-card { display: flex; flex-direction: column; }
+    .carta-card-img { width: 100%; height: 160px; overflow: hidden; border-radius: 12px; margin-bottom: 12px; }
+    .carta-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .carta-card {
+      background: var(--card-bg); border: 1px solid rgba(28,43,74,.08); border-radius: var(--radius); padding: 18px; text-align: left; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .carta-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+    .carta-card:hover, .carta-card.active {
+      transform: translateY(-3px); border-color: var(--gold); box-shadow: var(--shadow-md);
+    }
+    .carta-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 6px; }
+    .carta-card p { font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
+    .carta-card .price { font-weight: 700; color: var(--terra); }
+    .carta-group { display: grid; gap: 18px; margin-bottom: 32px; }
+    .carta-group-header { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--navy); margin-bottom: 0; }
+    .carta-group-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .availability-badge.in-store { background: rgba(42,92,58,.12); color: #2a5c3a; border: 1px solid rgba(42,92,58,.18); }
+    .availability-badge.order-only { background: rgba(28,43,74,.08); color: var(--navy); border: 1px solid rgba(28,43,74,.12); }
+    .availability-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 0 auto 22px;
+      max-width: 700px;
+    }
+    .availability-note span { font-size: 12px; color: var(--text-mid); }
+    .carta-detail {
+      background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 24px; position: sticky; top: 90px;
+    }
+    .carta-detail h3 { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); margin-bottom: 10px; }
+    .carta-detail .detail-price { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--terra); font-weight: 700; margin: 14px 0 16px; }
+    .carta-detail ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+    .carta-detail li { padding-left: 18px; position: relative; color: var(--text-mid); }
+    .carta-detail li::before { content: '•'; position: absolute; left: 0; color: var(--gold); }
+    .keke-selector label { display: block; margin-bottom: 10px; color: var(--text-dark); }
+    .keke-selector input { margin-right: 10px; accent-color: var(--gold); }
+    .whatsapp-note { margin-top: 18px; font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+    .whatsapp-note a { color: var(--brand-gold); font-weight: 600; text-decoration: none; }
+    .carta-cta { margin-top: 18px; }
+    .carta-cta a { display: inline-block; }
+    @media (max-width: 900px) {
+      .carta-layout { grid-template-columns: 1fr; }
+      .carta-detail { position: static; }
+      .carta-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── CATEGORIES (HOME) ─────────────────────────────────────── */
+    #categories { padding: 60px 5%; max-width: 1100px; margin: 0 auto; }
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .category-card { background: var(--card-bg); border-radius: 16px; padding: 22px; text-align: left; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform .18s, box-shadow .18s; display:flex; flex-direction:column; gap:12px; }
+    .category-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .category-emoji { font-size: 36px; }
+    .category-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); }
+    .category-desc { color: var(--text-mid); font-size: 14px; }
+
+    /* hide carta (catalog) by default; will show when user selects category */
+    #categories.hidden { display: none; }
+    #carta.hidden { display: none; }
+
+    /* ─── FEATURES ────────────────────────────────────────────────── */
+    #features { background: var(--navy); padding: 88px 5%; }
+    .features-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .feature-card { background: var(--navy-light); padding: 48px 40px; position: relative; overflow: hidden; transition: background .25s; }
+    .feature-card:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .feature-card:last-child  { border-radius: 0 var(--radius) var(--radius) 0; }
+    .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); opacity: 0; transition: opacity .25s; }
+    .feature-card:hover { background: #344d7a; }
+    .feature-card:hover::before { opacity: 1; }
+    .feat-icon { width: 52px; height: 52px; border-radius: 12px; background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.25); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 24px; }
+    .feat-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 12px; line-height: 1.25; }
+    .feat-desc { font-size: 14px; color: rgba(255,255,255,.62); line-height: 1.7; font-weight: 300; }
+    .oven-clock { margin-top: 24px; background: rgba(0,0,0,.25); border-radius: var(--radius-sm); padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; }
+    .oven-label { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .oven-status { display: flex; align-items: center; gap: 8px; }
+    .oven-pulse { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 0 rgba(74,222,128,.4); animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(74,222,128,.5); } 70% { box-shadow: 0 0 0 9px rgba(74,222,128,0); } 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); } }
+    .oven-time { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--white); letter-spacing: -.01em; }
+    .oven-msg { font-size: 12px; color: rgba(255,255,255,.5); font-weight: 300; }
+
+    /* ─── DIAGRAMA ARTESANAL ───────────────────────────────────────── */
+    #proceso-masa-madre { padding: 100px 5% 120px; background: var(--cream); position: relative; overflow: visible; }
+    .proceso-container { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; position: relative; }
+    .proceso-image-wrap { position: relative; width: 400px; height: auto; display: flex; align-items: center; justify-content: center; }
+    .proceso-image-wrap img { width: 100%; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+    .hand-callout { font-family: 'Shadows Into Light', cursive; position: absolute; max-width: 280px; text-align: left; color: var(--navy); background: rgba(255,255,255,0.98); padding: 18px 18px 16px; border-radius: 22px; border: 1px solid rgba(16,33,61,.14); box-shadow: 0 24px 60px rgba(15,31,61,.18); opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease 0.5s, transform 0.5s ease 0.5s; z-index: 2; }
+    .hand-callout#callout-masa-madre { max-width: 240px; font-size: 18px; background: rgba(255,255,255,0.99); border-color: rgba(7,27,59,.2); box-shadow: 0 26px 68px rgba(15,31,61,.22); }
+    .proceso-container.visible .hand-callout { opacity: 1; transform: translateY(0); }
+    .hand-callout p { font-size: 19px; line-height: 1.45; }
+    .callout-line { position: absolute; fill: none; stroke: var(--text-dark); stroke-opacity: 0.3; stroke-width: 1.5; pointer-events: none; }
+    
+    #callout-harina { top: 12%; left: -320px; }
+    #callout-horno { bottom: 12%; left: -320px; }
+    #callout-fermentacion { top: 12%; right: -320px; text-align: right; }
+    #callout-masa-madre { bottom: 12%; right: -320px; text-align: right; }
+
+    .proceso-container .line-harina { top: 16%; left: -85px; width: 80px; height: 60px; }
+    .proceso-container .line-horno { bottom: 16%; left: -85px; width: 80px; height: 60px; transform: scaleY(-1); }
+    .proceso-container .line-fermentacion { top: 16%; right: -85px; width: 80px; height: 60px; transform: scaleX(-1); }
+    .proceso-container .line-masa-madre { bottom: 16%; right: -85px; width: 80px; height: 60px; transform: scaleX(-1) scaleY(-1); }
+    .proceso-video {
+      width: min(980px, 100%);
+      aspect-ratio: 16 / 9;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(16,33,61,.1);
+      background: #000;
+    }
+    .proceso-video iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .proceso-video video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: #000;
+    }
+
+    /* ─── PRODUCTS (CATÁLOGO) ─────────────────────────────────────── */
+    #productos { padding: 96px 5% 40px; } /* Menos padding abajo para conectar con Tortas Especiales */
+    .section-header { text-align: center; max-width: 540px; margin: 0 auto 56px; }
+    .section-eyebrow { display: inline-block; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600; margin-bottom: 14px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 44px); font-weight: 700; color: var(--navy); line-height: 1.15; margin-bottom: 14px; }
+    .section-sub { font-size: 15px; color: var(--text-light); line-height: 1.7; font-weight: 300; }
+    .products-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; }
+    
+    .product-card { background: var(--card-bg); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s; cursor: pointer; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .product-img { position: relative; height: 210px; overflow: hidden; }
+    .product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .product-card:hover .product-img img { transform: scale(1.06); }
+    .product-badge { position: absolute; top: 14px; right: 14px; background: var(--gold); color: var(--navy); font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 100px; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .product-tag { position: absolute; top: 14px; left: 14px; background: rgba(28,43,74,.75); color: rgba(255,255,255,.85); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(4px); }
+    .product-body { padding: 20px 22px 22px; }
+    .product-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.3; }
+    .product-desc { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-bottom: 18px; font-weight: 300; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--terra); }
+    .btn-add { display: inline-flex; align-items: center; gap: 7px; background: var(--navy); color: var(--gold); border: none; border-radius: var(--radius-sm); padding: 9px 16px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background .2s, transform .15s; }
+    .btn-add:hover { background: var(--navy-light); transform: scale(1.04); }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 10px; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius-sm); padding: 15px 28px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 20px rgba(201,168,76,.4); }
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+    /* ─── TORTAS ESPECIALES (SOLO IMÁGENES) ────────────────────────── */
+    #tortas-especiales { padding: 40px 5% 96px; }
+    .tortas-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 28px; }
+    .torta-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s; cursor: pointer; aspect-ratio: 1 / 1; /* Esto las hace perfectamente cuadradas */ }
+    .torta-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .torta-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .torta-card:hover img { transform: scale(1.06); }
+
+    /* ─── ACORDEÓN DE IMÁGENES ────────────────────────────────────── */
+    #galeria-acordeon { padding: 60px 5% 100px; background: var(--cream); }
+    .acordeon-header { text-align: center; margin-bottom: 48px; }
+    .acordeon-cursive { font-family: 'Shadows Into Light', cursive; font-size: 32px; color: var(--terra); margin-bottom: 4px; display: block; }
+    .acordeon-container { display: flex; width: 100%; max-width: 1100px; height: 480px; margin: 0 auto; background: var(--navy); overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+    .acordeon-panel { position: relative; flex: 1; transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1); cursor: pointer; border-right: 1px solid rgba(255, 255, 255, 0.35); overflow: hidden; }
+    .acordeon-panel:last-child { border-right: none; }
+    .acordeon-panel.active { flex: 5; }
+    .acordeon-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; filter: brightness(0.4) sepia(0.5); transition: filter 0.6s ease; }
+    .acordeon-panel.active .acordeon-bg { filter: brightness(1) sepia(0); }
+    .acordeon-titulo { position: absolute; top: 0; left: 0; width: 100%; padding: 24px 10px; text-align: center; font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--white); transition: all 0.5s ease; line-height: 1.3; z-index: 2; }
+    .acordeon-panel.active .acordeon-titulo { background: var(--white); color: var(--navy); padding: 30px 20px; }
+
+    /* ─── TRUST STRIP & QR CTA & FOOTER ───────────────────────────── */
+    #trust { background: var(--cream-dark); padding: 64px 5%; text-align: center; }
+    .trust-row { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; justify-content: center; }
+    .trust-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .trust-number { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; color: var(--navy); }
+    .trust-label { font-size: 13px; color: var(--text-mid); font-weight: 400; }
+    .trust-divider { width: 1px; background: rgba(28,43,74,.15); align-self: stretch; }
+
+    #pedido { padding: 96px 5%; background: var(--cream); display: flex; justify-content: center; }
+    .qr-card { max-width: 900px; width: 100%; background: var(--navy); border-radius: 24px; padding: 64px; display: flex; gap: 64px; align-items: center; position: relative; overflow: hidden; }
+    .qr-card::after { content: ''; position: absolute; right: -80px; top: -80px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,.15) 0%, transparent 70%); pointer-events: none; }
+    .qr-text { flex: 1; }
+    .qr-eyebrow { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; display: block; }
+    .qr-title { font-family: 'Playfair Display', serif; font-size: clamp(26px, 3.5vw, 36px); font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 16px; }
+    .qr-desc { font-size: 15px; color: rgba(255,255,255,.65); line-height: 1.7; margin-bottom: 32px; font-weight: 300; }
+    .qr-box { flex-shrink: 0; background: var(--white); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .qr-box img { width: 140px; height: 140px; object-fit: cover; display: block; border-radius: 10px; }
+    .qr-label { font-size: 11px; color: var(--text-light); font-weight: 500; letter-spacing: .05em; text-transform: uppercase; }
+
+    footer { background: var(--navy); padding: 56px 5% 32px; color: rgba(255,255,255,.6); }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; margin-bottom: 48px; }
+    .footer-brand { flex: 1 1 240px; }
+    .footer-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .footer-logo { width: 38px; height: 38px; border-radius: 50%; background: rgba(201,168,76,.2); border: 1px solid rgba(201,168,76,.3); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; color: var(--gold); }
+    .footer-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--white); font-weight: 700; }
+    .footer-tagline { font-size: 13px; line-height: 1.7; margin-bottom: 20px; font-weight: 300; }
+    .footer-col { flex: 1 1 160px; }
+    .footer-col h4 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,.55); text-decoration: none; font-size: 14px; transition: color .2s; font-weight: 300; }
+    .footer-col ul a:hover { color: var(--white); }
+    .location-link { display: inline-flex; align-items: center; gap: 8px; }
+    .location-link svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--gold); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12px; }
+
+    .floating-actions { position: fixed; bottom: 28px; right: 28px; z-index: 200; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .location-pill {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(7, 27, 59, .96);
+      border: 1px solid rgba(201,168,76,.22);
+      box-shadow: 0 8px 24px rgba(15,31,61,.22);
+      text-decoration: none; color: #e94b4b;
+      flex-shrink: 0;
+    }
+    .location-pill svg { width: 24px; height: 24px; }
+    .wa-float { width: 56px; height: 56px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,.45); cursor: pointer; text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,.55); }
+    .wa-float svg { width: 28px; height: 28px; fill: #fff; }
+    .wa-tooltip { position: absolute; right: 68px; top: 50%; transform: translateY(-50%); background: var(--navy); color: #fff; font-size: 12px; font-weight: 500; white-space: nowrap; padding: 7px 14px; border-radius: var(--radius-sm); opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .wa-float:hover .wa-tooltip { opacity: 1; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; gap: 2px; }
+      .feature-card:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+      .feature-card:last-child  { border-radius: 0 0 var(--radius) var(--radius); }
+      #proceso-masa-madre { padding: 90px 5%; overflow: hidden; }
+      .proceso-container { flex-direction: column; max-width: 500px; margin: 0 auto; text-align: center; }
+      .proceso-image-wrap { width: 300px; margin-bottom: 40px; }
+      .hand-callout { position: relative; max-width: 100%; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; text-align: center !important; margin-bottom: 24px; }
+      .proceso-container .callout-line { display: none; }
+      .qr-card { flex-direction: column; padding: 40px 32px; gap: 36px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 768px) {
+      .acordeon-container { flex-direction: column; height: 600px; }
+      .acordeon-panel { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.35); }
+      .acordeon-panel:last-child { border-bottom: none; }
+      .acordeon-panel.active { flex: 3; }
+    }
+    @media (max-width: 600px) {
+      body { font-size: 15px; }
+      nav { height: 62px; padding: 0 16px; }
+      .nav-brand { gap: 8px; }
+      .nav-logo { width: 38px; height: 38px; font-size: 15px; }
+      .nav-name strong { font-size: 15px; }
+      .nav-name span { font-size: 10px; }
+      #hero { min-height: auto; }
+      .hero-content { padding: 100px 5% 60px; }
+      .hero-title { font-size: clamp(30px, 8vw, 44px); }
+      .hero-sub { font-size: 15px; margin-bottom: 28px; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-outline { justify-content: center; }
+      .btn-primary, .btn-outline { width: 100%; }
+      .section-header { margin-bottom: 34px; }
+      #features, #proceso-masa-madre, #trust, #productos, #categories, #galeria-acordeon, #pedido, footer { padding-left: 16px; padding-right: 16px; }
+      #features { padding-top: 64px; padding-bottom: 64px; }
+      #proceso-masa-madre { padding-top: 64px; padding-bottom: 72px; }
+      .proceso-container { max-width: 100%; }
+      .proceso-image-wrap { width: min(260px, 78vw); margin-bottom: 20px; }
+      .hand-callout { display: none; }
+      .proceso-container .callout-line { display: none; }
+      .trust-row { gap: 24px; }
+      .trust-divider { display: none; }
+      #productos { padding-top: 72px; padding-bottom: 24px; }
+      .products-grid, .tortas-grid, .categories-grid, .carta-grid, .carta-group-grid { grid-template-columns: 1fr; }
+      .carta-layout { grid-template-columns: 1fr; }
+      .carta-detail { position: static; }
+      .carta-card, .product-card { border-radius: 18px; }
+      .product-img { height: 185px; }
+      .product-body { padding: 18px 18px 20px; }
+      .product-name { font-size: 17px; }
+      .product-desc { font-size: 13px; margin-bottom: 14px; }
+      .product-footer { gap: 12px; align-items: flex-start; }
+      .btn-add { width: 100%; justify-content: center; }
+      #galeria-acordeon { padding-top: 52px; padding-bottom: 72px; }
+      .acordeon-header { margin-bottom: 28px; }
+      .acordeon-container { height: auto; flex-direction: column; }
+      .acordeon-panel { min-height: 96px; }
+      .acordeon-panel.active { min-height: 220px; flex: 4; }
+      .acordeon-titulo { font-size: 15px; padding: 18px 10px; }
+      #pedido { padding-top: 72px; padding-bottom: 76px; }
+      .qr-card { padding: 28px 20px; gap: 26px; }
+      .qr-title { font-size: 24px; }
+      .qr-desc { font-size: 14px; margin-bottom: 20px; }
+      .qr-box img { width: 120px; height: 120px; }
+      footer { padding-top: 44px; padding-bottom: 24px; }
+      .footer-inner { gap: 28px; margin-bottom: 28px; }
+      .footer-bottom { padding-top: 20px; }
+      .floating-actions { bottom: 18px; right: 18px; gap: 8px; }
+      .location-pill { width: 48px; height: 48px; }
+      .wa-float { width: 52px; height: 52px; }
+      .splash-frame { padding: 40px 30px; }
+      .splash-text { font-size: 28px; }
+      .splash-slice { transform: skewX(-5deg); }
+      .splash-bg { transform: skewX(5deg); }
+    }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body class="loading">
+
+  <!-- ─── SPLASH SCREEN COLLAGE RENACENTISTA ─────────────────────── -->
+  <div id="splash-screen">
+    <div class="splash-collage">
+      <div class="splash-slice"><div class="splash-bg bg-1"></div></div>
+      <div class="splash-slice"><div class="splash-bg bg-2"></div></div>
+      <div class="splash-slice"><div class="splash-bg bg-3"></div></div>
+      <div class="splash-slice"><div class="splash-bg bg-4"></div></div>
+    </div>
+    <div class="splash-overlay"></div>
+    <div class="splash-frame">
+      <div class="splash-logo">B</div>
+      <h2 class="splash-text">Benelli Perú</h2>
+      <div class="splash-sub">Arte al Horno</div>
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <div class="nav-logo">B</div>
+      <div class="nav-name">
+        <strong>Benelli Perú</strong>
+        <span>Manos al Horno</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hero" class="active">Inicio</a></li>
+      <li><a href="#proceso-masa-madre">Proceso</a></li>
+      <li><a href="#carta">Carta</a></li>
+      <li><a href="carta/carta-cafe.html">Carta cafe</a></li>
+      <li><a href="#galeria-acordeon">Selección</a></li>
+      <li><a href="#pedido">Pedidos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="nav-cart" aria-label="Carrito">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9m-5-9V7m0 0a2 2 0 10-4 0m4 0a2 2 0 00-4 0" />
+      </svg>
+      <span class="cart-badge">0</span>
+    </button>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-dot"></div>
+        <span>Lima, Perú · Desde 2011</span>
+      </div>
+      <h1 class="hero-title">
+        Recetas de Antaño<br>con el <em>Cariño</em><br>de Siempre
+      </h1>
+      <p class="hero-sub">
+        Fue creada en el 2011, no se utiliza colorantes ni preservantes artificiales solo masa tiempo y dedicación.
+      </p>
+      <div class="hero-ctas">
+        <a href="#pedido" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <path d="M8 9h8M8 13h5"/>
+          </svg>
+          Pedido Express QR
+        </a>
+        <a href="#productos" class="btn-outline">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          Ver Carta de Pastelería
+        </a>
+        <a href="carta/carta-cafe.html" class="btn-outline">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h4v4H7zM13 7h4v4h-4zM7 13h4v4H7zM15 13h2v2h-2zM13 15h2v2h-2zM17 17h-2v-2h2z"/>
+          </svg>
+          Ver carta de cafe
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Descubrir</span>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ─────────────────────────────────────────────────── -->
+  <section id="features">
+    <div class="features-grid">
+      <div class="feature-card fade-up">
+        <div class="feat-icon">🌾</div>
+        <h3 class="feat-title">Sabor Artesanal</h3>
+        <p class="feat-desc">Recetas de familia transmitidas por generaciones. Sin preservantes, sin colorantes artificiales. Solo masa, tiempo y dedicación.</p>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:.12s">
+        <div class="feat-icon">🔥</div>
+        <h3 class="feat-title">Horarios del Horno</h3>
+        <p class="feat-desc">Seguimos el ritmo del horno, no del reloj. La próxima tanda de pan calientito sale en:</p>
+        <div class="oven-clock">
+          <span class="oven-label">Próxima tanda</span>
+          <div class="oven-status">
+            <div class="oven-pulse"></div>
+            <span class="oven-time" id="countdown">--:--</span>
+          </div>
+          <span class="oven-msg" id="ovenMsg">Calculando turno del horno…</span>
+        </div>
+      </div>
+      <div class="feature-card fade-up" style="transition-delay:.24s">
+        <div class="feat-icon">📦</div>
+        <h3 class="feat-title">Despacho Ágil</h3>
+        <p class="feat-desc">Escanea el código QR, elige tus productos y recíbelos sin colas. Tu pedido queda listo antes de que llegues a la tienda.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DIAGRAMA ARTESANAL DE PROCESO ──────────────────────────────── -->
+  <section id="proceso-masa-madre">
+    <div class="section-header fade-up" style="margin-bottom: 44px;">
+      <h2 class="section-title" style="font-size: clamp(34px, 5vw, 58px);">Conoce Nuestro Proceso de Elaboración</h2>
+      <p class="section-sub">Observa la dedicación y el detalle detrás de cada uno de nuestros productos.</p>
+    </div>
+
+    <div class="proceso-container fade-up">
+      <div class="proceso-video">
+        <video controls playsinline preload="metadata" poster="https://cdn-cf-east.streamable.com/image/ftg1of.jpg">
+          <source src="https://api-f.streamable.com/api/v1/videos/ftg1of/mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TRUST STRIP ───────────────────────────────────────────────── -->
+  <section id="trust">
+    <div class="trust-row">
+      <div class="trust-item fade-up">
+        <span class="trust-number">14+</span>
+        <span class="trust-label">Años horneando</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item fade-up" style="transition-delay:.1s">
+        <span class="trust-number">80+</span>
+        <span class="trust-label">Productos en carta</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item fade-up" style="transition-delay:.2s">
+        <span class="trust-number">2 k+</span>
+        <span class="trust-label">Pedidos mensuales</span>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item fade-up" style="transition-delay:.3s">
+        <span class="trust-number">100%</span>
+        <span class="trust-label">Sin preservantes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CARTA / TORTAS DE VITRINA ───────────────────────────────── -->
+  <section id="carta" class="hidden">
+    <div class="section-header fade-up">
+      <button class="back-button" id="backToCategories" type="button">← Volver</button>
+      <span class="section-eyebrow">Nuestra Carta</span>
+      <h2 class="section-title">Tortas de vitrina</h2>
+      <p class="section-sub">Explora nuestras tortas, revisa sus rellenos y consulta la que más te guste.</p>
+    </div>
+
+    <div class="carta-layout">
+      <div class="carta-grid" id="cartaGrid"></div>
+      <aside class="carta-detail fade-up" id="cartaDetail"></aside>
+    </div>
+  </section>
+
+    <div class="cart-backdrop" id="cartBackdrop"></div>
+    <aside class="cart-panel" id="cartPanel" aria-label="Carrito de compras">
+      <div class="cart-panel-inner">
+        <div class="cart-panel-header">
+          <div>
+            <span class="section-eyebrow">Mi Pedido</span>
+            <h3>Carrito</h3>
+          </div>
+          <button class="cart-close" id="closeCart" aria-label="Cerrar carrito">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+          <p class="cart-empty">Tu carrito está vacío. Agrega tortas, bocaditos o postres y confirma tu pedido por WhatsApp.</p>
+        </div>
+        <div class="cart-summary" id="cartSummary">
+          <div><span>Subtotal</span><strong id="cartTotal">S/ 0.00</strong></div>
+          <div class="cart-note">Pago seguro en modo prueba. Luego conectamos tus cuentas reales.</div>
+          <div class="cart-actions">
+            <button class="btn-soft" id="secureCheckoutBtn" type="button">Pagar Seguro (Prueba)</button>
+            <a class="btn-primary" id="checkoutBtn" href="https://wa.me/51914824785?text=Hola%2C%20quiero%20hacer%20un%20pedido%20en%20Benelli%20Per%C3%BA" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+          </div>
+          <p class="payment-status" id="paymentStatus"></p>
+        </div>
+      </div>
+    </aside>
+
+  <!-- ─── PRODUCTS (CATÁLOGO) ─────────────────────────────────────── -->
+  <section id="productos">
+    <div class="section-header fade-up">
+      <span class="section-eyebrow">Nuestro Catálogo</span>
+      <h2 class="section-title">Hecho con Amor,<br>Entregado con Orgullo</h2>
+      <p class="section-sub">Descubre nuestra renovada selección de tortas familiares, postres personales y cajas de bocaditos para tus eventos.</p>
+    </div>
+
+    <!-- ─── CATEGORIES (HOME) ─────────────────────────────────────── -->
+    <section id="categories" class="fade-up">
+      <div class="section-header">
+        <span class="section-eyebrow">Explorar</span>
+        <h2 class="section-title">Elige una categoría</h2>
+        <p class="section-sub">Selecciona lo que buscas para ver nuestro catálogo.</p>
+      </div>
+      <div class="categories-grid">
+        <div class="category-card" data-category="tortas">
+          <div class="category-emoji">🍰</div>
+          <div class="category-title">Tortas de Vitrina</div>
+          <div class="category-desc">Tortas listas para llevar. Haz clic para ver el catálogo completo.</div>
+        </div>
+        <div class="category-card" data-category="especiales">
+          <div class="category-emoji">🍮</div>
+          <div class="category-title">Tortas Especiales</div>
+          <div class="category-desc">Explora nuestras tortas especiales listas para celebrar momentos únicos.</div>
+        </div>
+        <div class="category-card" data-category="bocaditos">
+          <div class="category-emoji">🥐</div>
+          <div class="category-title">Bocaditos</div>
+          <div class="category-desc">Próximamente: bocaditos dulces y salados para eventos.</div>
+        </div>
+        <div class="category-card" data-category="pasteles">
+          <div class="category-emoji">🍮</div>
+          <div class="category-title">Pasteles</div>
+          <div class="category-desc">Pasteles clásicos y rellenos listos para pedir.</div>
+        </div>
+        <div class="category-card" data-category="postres-familiares">
+          <div class="category-emoji">🍨</div>
+          <div class="category-title">Postres Familiares</div>
+          <div class="category-desc">Opciones para compartir en casa con toda la familia.</div>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- ─── ACORDEÓN DE IMÁGENES ────────────────────────────────────── -->
+  <section id="galeria-acordeon">
+    <div class="acordeon-header fade-up">
+      <span class="acordeon-cursive">Dulces Inspiraciones</span>
+      <h2 class="section-title">Nuestra Selección</h2>
+      <p class="section-sub">Una muestra de lo que puedes encontrar en nuestra pastelería y panadería,<br>creado para tu disfrute.</p>
+    </div>
+
+    <div class="acordeon-container fade-up">
+      <!-- Panel 1 -->
+      <div class="acordeon-panel active" onmouseenter="activarPanel(this)">
+        <div class="acordeon-bg" style="background-image: url('https://www.guiaderecetas.com/static/images/categorias/normal/panes-rapidos.jpg');"></div>
+        <div class="acordeon-titulo">PAN FRANCÉS</div>
+      </div>
+      <!-- Panel 2 -->
+      <div class="acordeon-panel" onmouseenter="activarPanel(this)">
+        <div class="acordeon-bg" style="background-image: url('https://patijinich.com/es/wp-content/uploads/sites/3/2017/12/609-pan-de-yema.jpg');"></div>
+        <div class="acordeon-titulo">PAN DE YEMA</div>
+      </div>
+      <!-- Panel 3 -->
+      <div class="acordeon-panel" onmouseenter="activarPanel(this)">
+        <div class="acordeon-bg" style="background-image: url('https://notonlysaladblog.com/wp-content/uploads/2017/07/Alf-maicena-3-Large.jpg');"></div>
+        <div class="acordeon-titulo">ALFAJORES DE MAICENA</div>
+      </div>
+      <!-- Panel 4 -->
+      <div class="acordeon-panel" onmouseenter="activarPanel(this)">
+        <div class="acordeon-bg" style="background-image: url('https://cdn0.recetasgratis.net/es/posts/0/1/9/torta_tres_leches_8910_600.jpg');"></div>
+        <div class="acordeon-titulo">TORTA TRES LECHES</div>
+      </div>
+      <!-- Panel 5 -->
+      <div class="acordeon-panel" onmouseenter="activarPanel(this)">
+        <div class="acordeon-bg" style="background-image: url('https://www.goodnes.com/sites/g/files/jgfbjl321/files/srh_recipes/ce0b9d6c8a0417b5b6a972b623c47ed9.jpg');"></div>
+        <div class="acordeon-titulo">PIONONO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── QR CTA ────────────────────────────────────────────────────── -->
+  <section id="pedido">
+    <div class="qr-card fade-up">
+      <div class="qr-text">
+        <span class="qr-eyebrow">Pedido Express</span>
+        <h2 class="qr-title">Sin Colas,<br>Sin Esperas</h2>
+        <p class="qr-desc">Escanea el QR con tu celular, elige tus productos y paga en línea. Tu pedido estará listo cuando llegues a la tienda. ¡Así de fácil!</p>
+        <a href="https://wa.me/51914824785?text=Hola%2C%20quiero%20hacer%20un%20pedido%20en%20Benelli%20Per%C3%BA%20%F0%9F%8D%9E" class="btn-primary" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.374 0 0 5.373 0 12c0 2.122.556 4.112 1.528 5.836L0 24l6.335-1.521A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.366l-.36-.214-3.76.903.935-3.65-.235-.374A9.787 9.787 0 012.182 12c0-5.421 4.397-9.818 9.818-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+          </svg>
+          Pedir por WhatsApp 
+        </a>
+      </div>
+      <div class="qr-box">
+        <img src="https://i.ibb.co/XrnMt2TL/Whats-App-Image-2026-07-07-at-11-40-13-AM.jpg" alt="QR para pedir por WhatsApp" loading="lazy" />
+        <span class="qr-label">Escanear para pedir</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer id="contacto">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <div class="footer-logo">B</div>
+          <span class="footer-name">Benelli Perú</span>
+        </div>
+        <p class="footer-tagline">Panadería y pastelería artesanal desde 2011. Recetas de familia, sabor de siempre, entregado con cariño en Lima.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Carta</h4>
+        <ul>
+          <li><a href="#productos">Tortas de encargo</a></li>
+          <li><a href="#productos">Bocaditos por mayor</a></li>
+          <li><a href="#productos">Panes artesanales</a></li>
+          <li><a href="#productos">Postres de temporada</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Horarios</h4>
+        <ul>
+          <li><a href="#">Lun – Vie: 6 am – 10 pm</a></li>
+          <li><a href="#">Sábado: 6 am – 10 pm</a></li>
+          <li><a href="#">Domingo: 6 am – 10 pm</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+51914824785">+51 914 824 785</a></li>
+          <li><a href="https://www.instagram.com/benelli.peru/">https://www.instagram.com/benelli.peru/</a></li>
+          <li>
+            <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Av.%20Victor%20Andr%C3%A9s%20Belaunde%201187-1149%2C%20Comas%2015314" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s6-4.35 6-10a6 6 0 10-12 0c0 5.65 6 10 6 10z"></path>
+                <circle cx="12" cy="11" r="2.2"></circle>
+              </svg>
+              <span>Ubicación: Av. Victor Andrés Belaunde 1187-1149, Comas 15314</span>
+            </a>
+          </li>
+          <li><a href="https://instagram.com/benelli.peru" target="_blank" rel="noopener">@BenelliPeru</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Benelli Perú · Manos al Horno. Todos los derechos reservados.</span>
+      <span>Hecho con ❤️ en Lima</span>
+    </div>
+  </footer>
+
+  <!-- ─── WHATSAPP FLOAT ───────────────────────────────────────────── -->
+  <div class="floating-actions">
+    <a class="location-pill" href="https://www.google.com/maps/search/?api=1&query=Av.%20Victor%20Andr%C3%A9s%20Belaunde%201187-1149%2C%20Comas%2015314" target="_blank" rel="noopener" aria-label="Abrir ubicación en Google Maps">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s6-4.35 6-10a6 6 0 10-12 0c0 5.65 6 10 6 10z"></path>
+        <circle cx="12" cy="11" r="2.2"></circle>
+      </svg>
+    </a>
+    <a class="wa-float" href="https://wa.me/51914824785?text=Hola%2C%20quiero%20hacer%20un%20pedido%20en%20Benelli%20Per%C3%BA%20%F0%9F%8D%9E" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+      <span class="wa-tooltip">Pedir por WhatsApp</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 2.122.556 4.112 1.528 5.836L0 24l6.335-1.521A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.003-1.366l-.36-.214-3.76.903.935-3.65-.235-.374A9.787 9.787 0 012.182 12c0-5.421 4.397-9.818 9.818-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/>
+      </svg>
+    </a>
+  </div>
+
+  <script>
+    // ── Splash Screen Logic ─────────────────────────────────────────
+    let splashHidden = false;
+    function hideSplash() {
+      if (splashHidden) return;
+      splashHidden = true;
+      const splash = document.getElementById('splash-screen');
+      if (!splash) {
+        document.body.classList.remove('loading');
+        return;
+      }
+      splash.classList.add('hidden');
+      document.body.classList.remove('loading');
+      setTimeout(() => {
+        if (splash && splash.parentNode) splash.remove();
+      }, 1200);
+    }
+
+    // Evita que la pantalla de carga se quede fija si alguna imagen tarda o falla.
+    document.addEventListener('DOMContentLoaded', () => setTimeout(hideSplash, 1200));
+    window.addEventListener('load', () => setTimeout(hideSplash, 2500));
+    setTimeout(hideSplash, 4500);
+
+    // ── Fade-up on scroll ──────────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── Carta interactiva ─────────────────────────────────────────
+    const cartaItems = [
+      {
+        id: 'selva-negra',
+        category: 'tortas',
+        name: 'Selva Negra',
+        subtitle: 'Clásica con mermelada y crema',
+        price: 'S/ 62.00',
+        description: 'Keke de chocolate con mermelada de fresa y crema Paris, acabado clásico de Selva Negra.',
+        coverage: 'Cobertura de chocolate',
+        image: 'https://i.postimg.cc/DnQbzPVN/Whats-App-Image-2026-07-04-at-3-17-02-PM.jpg',
+        fillings: ['Mermelada de fresa', 'Crema Paris', 'Keke de chocolate']
+      },
+      {
+        id: 'oreo',
+        category: 'tortas',
+        name: 'Oreo',
+        subtitle: 'Galleta y crema',
+        price: 'S/ 55.00',
+        description: 'Capas de crema de Oreo sobre keke de chocolate con textura crujiente.',
+        coverage: 'Cobertura de crema',
+        image: 'https://i.postimg.cc/p2V2BK6B/Whats-App-Image-2026-07-04-at-3-17-01-PM-(3).jpg',
+        fillings: ['Crema de Oreo', 'Keke de chocolate', 'Crema Paris']
+      },
+      {
+        id: 'fudge',
+        category: 'tortas',
+        name: 'Fudge',
+        subtitle: 'Chocolate intenso',
+        price: 'S/ 58.00',
+        description: 'Keke de chocolate con abundante fudge cremoso, ideal para amantes del chocolate.',
+        coverage: 'Ganache de chocolate',
+        image: 'https://i.postimg.cc/TdCfS1Zx/Whats-App-Image-2026-07-04-at-3-17-01-PM-(1).jpg',
+        fillings: ['Keke de chocolate', 'Fudge']
+      },
+      {
+        id: 'moka',
+        category: 'tortas',
+        name: 'Moka',
+        subtitle: 'Café y crema',
+        price: 'S/ 58.00',
+        description: 'Crema de moka combinada con crema Paris sobre keke de chocolate.',
+        coverage: 'Crema moka',
+        image: 'https://i.postimg.cc/y1YkWMKK/Whats-App-Image-2026-07-04-at-3-17-01-PM-(2).jpg',
+        fillings: ['Crema de moka', 'Crema Paris', 'Keke de chocolate']
+      },
+      {
+        id: 'torta-helada',
+        category: 'tortas',
+        name: 'Torta Helada',
+        subtitle: 'Postre frío',
+        price: 'S/ 65.00',
+        description: 'Torta helada con capas frías y presentación refrescante (variedades según temporada).',
+        coverage: 'Cobertura fría / helada',
+        image: 'https://i.postimg.cc/09DxvcLV/Whats-App-Image-2026-07-04-at-3-16-59-PM-(1).jpg',
+        fillings: []
+      },
+      {
+        id: 'tres-leches-capuchino',
+        category: 'tortas',
+        name: 'Tres Leches Capuchino',
+        subtitle: 'Toque de café',
+        price: 'S/ 68.00',
+        description: 'Tres leches con notas de capuchino, ideal para quienes buscan un perfil más intenso.',
+        coverage: 'Cobertura Tres Leches con café',
+        image: 'https://i.postimg.cc/nHmxHTg6/Whats-App-Image-2026-07-04-at-3-17-00-PM.jpg',
+        fillings: ['Leche condensada', 'Crema capuchino', 'Bizcocho esponjoso']
+      },
+      {
+        id: 'tres-leches-clasica-vainilla',
+        category: 'tortas',
+        name: 'Tres Leches Clásica (Vainilla)',
+        subtitle: 'La de siempre',
+        price: 'S/ 60.00',
+        description: 'Versión clásica de tres leches con vainilla natural y crema fresca.',
+        coverage: 'Cobertura de crema chantilly',
+        image: 'https://i.postimg.cc/37Ks6K8n/Whats-App-Image-2026-07-04-at-3-17-00-PM-(1).jpg',
+        fillings: ['Leche condensada', 'Crema chantilly', 'Vainilla']
+      },
+      {
+        id: 'sublime',
+        category: 'tortas',
+        name: 'Sublime',
+        subtitle: 'Elegancia y textura',
+        price: 'S/ 80.00',
+        description: 'Combinación de crema sublime, crema Paris y keke de chocolate con toques crocantes.',
+        coverage: 'Cobertura brillante / praliné',
+        image: 'https://i.postimg.cc/0kg8mhDC/Whats-App-Image-2026-07-04-at-3-16-59-PM.jpg',
+        fillings: ['Crema sublime', 'Crema Paris', 'Keke de chocolate']
+      },
+      {
+        id: 'selva-negra-mixta',
+        category: 'tortas',
+        name: 'Selva Negra Mixta',
+        subtitle: 'Chocolate y vainilla juntos',
+        price: 'S/ 75.00',
+        description: 'Mezcla de keke de chocolate y vainilla con crema Paris y mermelada de fresa.',
+        coverage: 'Mixta (chocolate+vainilla)',
+        image: 'https://i.postimg.cc/tXvBMH2z/Whats-App-Image-2026-07-04-at-3-17-00-PM-(2).jpg',
+        fillings: ['Crema Paris', 'Mermelada de fresa', 'Keke de chocolate', 'Keke de vainilla']
+      },
+      {
+        id: 'especial-chocolate',
+        category: 'especiales',
+        name: 'Especial de Chocolate',
+        subtitle: 'Cobertura y relleno intensos',
+        price: 'S/ 95.00',
+        description: 'Torta especial con rico chocolate oscuro y acabado brillante.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3En8VmjdHdICm_UFyGxLwr8ddmrB2FHuxNIsyLs1c5ob08DEZSn8wSLIO&s=10'
+      },
+      {
+        id: 'especial-vainilla',
+        category: 'especiales',
+        name: 'Especial de Vainilla',
+        subtitle: 'Dulzura delicada',
+        price: 'S/ 92.00',
+        description: 'Torta especial con capas suaves de vainilla y crema ligera.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1mo83ZADH8kLkESu9fTOH99pEZWWVSUaOVsg5rZDh53fT1EhtbscSW1Q&s=10'
+      },
+      {
+        id: 'especial-tuti-fruti',
+        category: 'especiales',
+        name: 'Tuti Fruti',
+        subtitle: 'Frescura colorida',
+        price: 'S/ 98.00',
+        description: 'Torta especial decorada con frutas frescas y crema suave.',
+        image: 'https://i.postimg.cc/Pt0mDf6X/Whats-App-Image-2026-07-04-at-3-17-01-PM.jpg'
+      },
+      {
+        id: 'especial-caramelo',
+        category: 'especiales',
+        name: 'Especial Caramelo',
+        subtitle: 'Sabor intenso',
+        price: 'S/ 102.00',
+        description: 'Torta especial con caramelo y textura cremosa.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFspkJ6_AW44bUBvmjiJZcfoFYk1C1CckAEmgZ6Stu5MhXeQM9WPeV0Y2p&s=10'
+      },
+      {
+        id: 'especial-trufa',
+        category: 'especiales',
+        name: 'Especial Trufa',
+        subtitle: 'Cacao y elegancia',
+        price: 'S/ 105.00',
+        description: 'Torta especial con trufa de chocolate y decoración premium.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWI2xyyR79mU3woNzPBkYyMc6asg1L5XEFCbJS-vq-dmUbs8owPw7IKQA&s=10'
+      },
+      {
+        id: 'especial-red-velvet',
+        category: 'especiales',
+        name: 'Especial Red Velvet',
+        subtitle: 'Color y sabor',
+        price: 'S/ 108.00',
+        description: 'Torta especial con capa roja y crema de queso suave.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTahus1wNyjkXSfB7JEjHowRnxokFlfm2yZ7UozbSMQBHdf4gPbdppBQsv2&s=10'
+      },
+      {
+        id: 'especial-frutos-secos',
+        category: 'especiales',
+        name: 'Especial Frutos Secos',
+        subtitle: 'Textura y sabor',
+        price: 'S/ 112.00',
+        description: 'Torta especial con frutos secos y capas crujientes.',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJX6YlaVGeZbvFqYG4M4QGqRyEN_at26elVg9iGcF_QHMK0Wi-BsEwgnk&s=10'
+      },
+      {
+        id: 'empanadita-pollo',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Empanadita de pollo',
+        subtitle: 'Bocadito salado para picadas',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Crujiente empanada rellena de pollo jugoso, ideal para reuniones y picadas.'
+      },
+      {
+        id: 'empanadita-carne',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Empanadita de carne',
+        subtitle: 'Bocadito salado para eventos',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Empanadita de carne sazonada y masa dorada, perfecta para servir caliente.'
+      },
+      {
+        id: 'empanadita-queso',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Empanadita de queso',
+        subtitle: 'Bocadito salado clásico',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Empanadita rellena de queso cremoso que se derrite con cada bocado.'
+      },
+      {
+        id: 'empanadita-aceituna',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Empanadita de aceituna',
+        subtitle: 'Bocadito salado premium',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Empanadita con relleno de aceituna y especias, ideal para picadas sofisticadas.'
+      },
+      {
+        id: 'enrollado-hotdog',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Enrollado de hot dog',
+        subtitle: 'Bocadito salado para niños',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Rollitos rellenos de salchicha y masa suave, fáciles de comer en eventos.'
+      },
+      {
+        id: 'criscinos-queso',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Criscinos de queso y finas hierbas',
+        subtitle: 'Bocadito salado gourmet',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Crujientes criscinos con queso fundido y aroma de finas hierbas.'
+      },
+      {
+        id: 'rosquitas-queso',
+        category: 'bocaditos',
+        kind: 'Salado',
+        name: 'Rosquitas de queso y finas hierbas',
+        subtitle: 'Bocadito salado ligero',
+        priceUnit: 0.80,
+        priceHundred: 80.00,
+        description: 'Delicadas rosquitas saladas con queso y finas hierbas, ideales para picadas.'
+      },
+      {
+        id: 'alfajorcitos-dulce-de-leche',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Alfajorcitos con dulce de leche',
+        subtitle: 'Bocadito dulce clásico',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Mini alfajores rellenos de dulce de leche, suaves y dulces.'
+      },
+      {
+        id: 'nidito-amor-jalea-roja',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Nidito de amor con jalea roja',
+        subtitle: 'Bocadito dulce con presentación tierna',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Nidito fragante relleno de jalea roja y crema dulce.'
+      },
+      {
+        id: 'nidito-amor-jalea-amarilla',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Nidito de amor con jalea amarilla',
+        subtitle: 'Bocadito dulce colorido',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Nidito delicado con jalea amarilla y toque de cereza.'
+      },
+      {
+        id: 'cocaditas',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Cocaditas',
+        subtitle: 'Bocadito dulce tradicional',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Cocaditas de coco rallado, suaves y llenas de sabor tropical.'
+      },
+      {
+        id: 'conitos',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Conitos',
+        subtitle: 'Bocadito dulce crocante',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Conitos rellenos y coronados con cobertura dulce.'
+      },
+      {
+        id: 'orejitas',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Orejitas',
+        subtitle: 'Bocadito dulce hojaldrado',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Orejitas crujientes con azúcar, un clásico irresistible.'
+      },
+      {
+        id: 'empanaditas-grajeas',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Empanaditas con grajeas',
+        subtitle: 'Bocadito dulce festivo',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Empanaditas decoradas con grajeas de colores y relleno dulce.'
+      },
+      {
+        id: 'empanaditas-chocolate-negro',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Empanaditas bañadas con chocolate negro',
+        subtitle: 'Bocadito dulce con cobertura',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Empanaditas bañadas con chocolate negro para un toque intenso.'
+      },
+      {
+        id: 'empanaditas-chocolate-blanco',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Empanaditas bañadas con chocolate blanco',
+        subtitle: 'Bocadito dulce suave',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Empanaditas con cobertura de chocolate blanco, cremosas y delicadas.'
+      },
+      {
+        id: 'empanaditas-jalea-roja',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Empanaditas con jalea roja',
+        subtitle: 'Bocadito dulce con brillo',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Empanaditas rellenas con jalea roja y acabado brillante.'
+      },
+      {
+        id: 'empanaditas-jalea-amarilla',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Empanaditas con jalea amarilla',
+        subtitle: 'Bocadito dulce alegre',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Empanaditas rellenas con jalea amarilla para un toque frutal.'
+      },
+      {
+        id: 'piononitos',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Piononitos',
+        subtitle: 'Bocadito dulce enrollado',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Rollitos suaves rellenos de dulce, ideales para mesas de postres.'
+      },
+      {
+        id: 'mini-trufitas',
+        category: 'bocaditos',
+        kind: 'Dulce',
+        name: 'Mini trufitas',
+        subtitle: 'Bocadito dulce elegante',
+        priceUnit: 0.60,
+        priceHundred: 60.00,
+        description: 'Pequeñas trufas dulces, perfectas para eventos y regalos.'
+      },
+      {
+        id: 'pastel-alfajor-coco',
+        category: 'pasteles',
+        name: 'Alfajor C/ coco',
+        subtitle: 'Pastel clásico relleno',
+        description: 'Alfajor tradicional con coco y relleno dulce.'
+      },
+      {
+        id: 'pastel-alfajor-clasico',
+        category: 'pasteles',
+        name: 'Alfajor clasico',
+        subtitle: 'Versión tradicional',
+        description: 'Alfajor clásico de receta artesanal.'
+      },
+      {
+        id: 'pastel-alfajor-plata-blanco',
+        category: 'pasteles',
+        name: 'Alfajor De La Plata C/ Chocolate Blanco',
+        subtitle: 'Cobertura blanca',
+        description: 'Alfajor estilo de la Plata bañado en chocolate blanco.'
+      },
+      {
+        id: 'pastel-alfajor-plata-oscuro',
+        category: 'pasteles',
+        name: 'Alfajor De La Plata C/ Chocolate Oscuro',
+        subtitle: 'Cobertura intensa',
+        description: 'Alfajor estilo de la Plata con baño de chocolate oscuro.'
+      },
+      {
+        id: 'pastel-cono-clasico-ddl',
+        category: 'pasteles',
+        name: 'Cono clasico C/ dulce de leche',
+        subtitle: 'Cono relleno',
+        description: 'Cono clásico con relleno de dulce de leche.'
+      },
+      {
+        id: 'pastel-cono-chocolate-ddl',
+        category: 'pasteles',
+        name: 'Cono con chocolate C/ Dulce de leche',
+        subtitle: 'Cono bañado y relleno',
+        description: 'Cono con cobertura de chocolate y relleno de dulce de leche.'
+      },
+      {
+        id: 'pastel-orejas-clasicas',
+        category: 'pasteles',
+        name: 'Orejas Clasicas',
+        subtitle: 'Hojaldre tradicional',
+        description: 'Orejas clásicas crujientes y azucaradas.'
+      },
+      {
+        id: 'pastel-orejas-chocolate',
+        category: 'pasteles',
+        name: 'Orejas banadas con chocolate',
+        subtitle: 'Hojaldre con cobertura',
+        description: 'Orejas de hojaldre bañadas con chocolate.'
+      },
+      {
+        id: 'pastel-milhoja-ddl',
+        category: 'pasteles',
+        name: 'Milhoja C/ Dulce De Leche',
+        subtitle: 'Capas y relleno suave',
+        description: 'Milhoja artesanal rellena con dulce de leche.',
+        image: 'https://i.postimg.cc/Zq9kBgT5/Whats-App-Image-2026-07-01-at-3-13-40-PM.jpg'
+      },
+      {
+        id: 'pastel-tartaleta-manzana',
+        category: 'pasteles',
+        name: 'Tartaletas de manzana',
+        subtitle: 'Fruta y masa horneada',
+        description: 'Tartaletas de manzana con acabado casero.'
+      },
+      {
+        id: 'pastel-manzana',
+        category: 'pasteles',
+        name: 'Pastel de manzana',
+        subtitle: 'Clásico de horno',
+        description: 'Pastel de manzana con relleno frutal.'
+      },
+      {
+        id: 'pastel-pionono-ddl',
+        category: 'pasteles',
+        name: 'Pionono C/ Dulce De Leche',
+        subtitle: 'Enrollado dulce',
+        description: 'Pionono clásico con dulce de leche.'
+      },
+      {
+        id: 'pastel-herraduras-chocolate',
+        category: 'pasteles',
+        name: 'Herraduras C/ Chocolate',
+        subtitle: 'Formato especial',
+        description: 'Herraduras artesanales con chocolate.'
+      },
+      {
+        id: 'pastel-herrajes-ddl',
+        category: 'pasteles',
+        name: 'Herrajes C/ Dulce De Leche Clasico',
+        subtitle: 'Relleno tradicional',
+        description: 'Herrajes con dulce de leche clásico.'
+      },
+      {
+        id: 'pastel-flautas-ddl',
+        category: 'pasteles',
+        name: 'Flautas rellenas con dulce de leche',
+        subtitle: 'Crujientes y rellenas',
+        description: 'Flautas rellenas de dulce de leche.'
+      },
+      {
+        id: 'pastel-castanas-ddl',
+        category: 'pasteles',
+        name: 'Pastel de castanas rellenas con dulce de leche',
+        subtitle: 'Relleno cremoso',
+        description: 'Pastel de castañas con relleno de dulce de leche.'
+      },
+      {
+        id: 'pastel-chispas-chocolate',
+        category: 'pasteles',
+        name: 'Pastel con chispas de chocolate',
+        subtitle: 'Toque de cacao',
+        description: 'Pastel esponjoso con chispas de chocolate.'
+      },
+      {
+        id: 'pastel-riel-pina',
+        category: 'pasteles',
+        name: 'Riel de pina',
+        subtitle: 'Perfil frutal',
+        description: 'Riel de piña con sabor dulce y fresco.'
+      },
+      {
+        id: 'pastel-kena-ddl',
+        category: 'pasteles',
+        name: 'Kena clasica de dulce de leche',
+        subtitle: 'Receta clásica',
+        description: 'Kena clásica con dulce de leche.'
+      },
+      {
+        id: 'pastel-kena-chocolate',
+        category: 'pasteles',
+        name: 'Kena clasica de dulce de chocolate',
+        subtitle: 'Versión chocolate',
+        description: 'Kena clásica con relleno de chocolate.'
+      },
+      {
+        id: 'pastel-flauta-ddl-choco',
+        category: 'pasteles',
+        name: 'Flautas rellenas con dulce de leche banada en chocolate',
+        subtitle: 'Relleno y cobertura',
+        description: 'Flautas rellenas de dulce de leche con baño de chocolate.'
+      },
+      {
+        id: 'pastel-milhoja-chocolate',
+        category: 'pasteles',
+        name: 'Milhoja C/ chocolate',
+        subtitle: 'Capas con cacao',
+        description: 'Milhoja artesanal con crema de chocolate.'
+      },
+      {
+        id: 'postre-keke-sable-fudge',
+        category: 'postres-familiares',
+        name: 'Keke de sable con fudge',
+        subtitle: 'Familiar para compartir',
+        description: 'Keke de sable con cobertura de fudge.',
+        price: 30,
+        inStore: true
+      },
+      {
+        id: 'postre-keke-sable-ddl-castanas',
+        category: 'postres-familiares',
+        name: 'Keke de sable con dulce de leche y casta\u00f1as',
+        subtitle: 'Familiar para compartir',
+        description: 'Keke de sable con dulce de leche y casta\u00f1as.',
+        price: 30,
+        inStore: true
+      },
+      {
+        id: 'postre-pionono-chocolate',
+        category: 'postres-familiares',
+        name: 'Pionono de chocolate',
+        subtitle: 'Familiar para compartir',
+        description: 'Pionono con relleno de crema de chocolate.',
+        fillings: ['Crema de chocolate'],
+        price: 50,
+        inStore: true
+      },
+      {
+        id: 'postre-pionono-durazno',
+        category: 'postres-familiares',
+        name: 'Pionono de durazno',
+        subtitle: 'Familiar para compartir',
+        description: 'Pionono con relleno de gajos de durazno.',
+        fillings: ['Gajos de durazno'],
+        price: 50,
+        image: 'https://i.postimg.cc/cL8WGxxx/Whats-App-Image-2026-07-04-at-3-16-57-PM.jpg',
+        inStore: true
+      },
+      {
+        id: 'postre-pionono-fresa',
+        category: 'postres-familiares',
+        name: 'Pionono de fresa',
+        subtitle: 'Familiar para compartir',
+        description: 'Pionono con relleno de gajos de fresa.',
+        fillings: ['Gajos de fresa'],
+        price: 50
+      },
+      {
+        id: 'postre-pionono-oreo',
+        category: 'postres-familiares',
+        name: 'Pionono Oreo',
+        subtitle: 'Familiar para compartir',
+        description: 'Pionono con relleno de crema y trozos de Oreo.',
+        fillings: ['Crema y trozos de Oreo'],
+        price: 50
+      },
+      {
+        id: 'postre-pionono-lucuma',
+        category: 'postres-familiares',
+        name: 'Pionono de lucuma',
+        subtitle: 'Familiar para compartir',
+        description: 'Pionono con relleno de crema de lucuma.',
+        fillings: ['Crema de lucuma'],
+        price: 50
+      },
+      {
+        id: 'postre-opera-familiar',
+        category: 'postres-familiares',
+        name: 'Opera familiar',
+        subtitle: 'Familiar para compartir',
+        description: 'Postre opera en formato familiar.',
+        price: 40,
+        inStore: true
+      },
+      {
+        id: 'postre-tres-leches-vainilla',
+        category: 'postres-familiares',
+        name: 'Tres leches de vainilla',
+        subtitle: 'Familiar para compartir',
+        description: 'Tres leches sabor vainilla.',
+        price: 30,
+        inStore: true
+      },
+      {
+        id: 'postre-tres-leches-fresa',
+        category: 'postres-familiares',
+        name: 'Tres leches de fresa',
+        subtitle: 'Familiar para compartir',
+        description: 'Tres leches sabor fresa.',
+        price: 30
+      },
+      {
+        id: 'postre-tres-leches-capuccino',
+        category: 'postres-familiares',
+        name: 'Tres leches capuccino',
+        subtitle: 'Familiar para compartir',
+        description: 'Tres leches con toque capuccino.',
+        price: 30,
+        inStore: true
+      },
+      {
+        id: 'postre-tres-leches-lucuma',
+        category: 'postres-familiares',
+        name: 'Tres leches de lucuma',
+        subtitle: 'Familiar para compartir',
+        description: 'Tres leches sabor lucuma.',
+        price: 30
+      },
+      {
+        id: 'postre-cheesecake-fresa',
+        category: 'postres-familiares',
+        name: 'Cheesecake de fresa',
+        subtitle: 'Familiar para compartir',
+        description: 'Cheesecake familiar de fresa.',
+        price: 50,
+        image: 'https://i.postimg.cc/QMTdmg9b/Whats-App-Image-2026-07-04-at-3-16-58-PM-(2).jpg',
+        inStore: true
+      },
+      {
+        id: 'postre-cheesecake-arandanos',
+        category: 'postres-familiares',
+        name: 'Cheesecake de arandanos',
+        subtitle: 'Familiar para compartir',
+        description: 'Cheesecake familiar de arándanos.',
+        price: 50,
+        image: 'https://i.postimg.cc/15r6cShq/Whats-App-Image-2026-07-04-at-3-16-58-PM.jpg',
+        inStore: true
+      },
+      {
+        id: 'postre-cheesecake-maracuya',
+        category: 'postres-familiares',
+        name: 'Cheesecake de maracuya',
+        subtitle: 'Familiar para compartir',
+        description: 'Cheesecake familiar de maracuyá.',
+        price: 50,
+        image: 'https://i.postimg.cc/qqLRnkhr/Whats-App-Image-2026-07-04-at-3-16-58-PM-(1).jpg',
+        inStore: true
+      },
+      {
+        id: 'postre-cheesecake-durazno',
+        category: 'postres-familiares',
+        name: 'Cheesecake de durazno',
+        subtitle: 'Familiar para compartir',
+        description: 'Cheesecake familiar de durazno.',
+        price: 50
+      },
+      {
+        id: 'postre-cheesecake-lucuma',
+        category: 'postres-familiares',
+        name: 'Cheesecake de lucuma',
+        subtitle: 'Familiar para compartir',
+        description: 'Cheesecake familiar de lucuma.',
+        price: 50
+      },
+      {
+        id: 'postre-cheesecake-oreo',
+        category: 'postres-familiares',
+        name: 'Cheesecake Oreo',
+        subtitle: 'Familiar para compartir',
+        description: 'Cheesecake familiar con Oreo.',
+        price: 50
+      },
+      {
+        id: 'postre-tarta-frutas-crema',
+        category: 'postres-familiares',
+        name: 'Tarta de frutas con crema pastelera',
+        subtitle: 'Familiar para compartir',
+        description: 'Tarta familiar de frutas con crema pastelera.',
+        price: 50
+      },
+      {
+        id: 'postre-pye-limon',
+        category: 'postres-familiares',
+        name: 'Pye de limon',
+        subtitle: 'Familiar para compartir',
+        description: 'Pye de limon en presentacion familiar.',
+        price: 45
+      },
+      {
+        id: 'postre-pye-manzana',
+        category: 'postres-familiares',
+        name: 'Pye de manzana',
+        subtitle: 'Familiar para compartir',
+        description: 'Pye de manzana en presentacion familiar.',
+        price: 45,
+        image: 'https://i.postimg.cc/BZyw9xXL/Whats-App-Image-2026-07-04-at-3-16-57-PM-(1).jpg'
+      }
+    ];
+
+    const cakeModels = [
+      'Fudge',
+      'Dulce de leche',
+      'Crema Paris',
+      'Crema de café',
+      'Crema de chocolate',
+      'Crema de fresa',
+      'Crema de guanábana',
+      'Crema de maracuyá',
+      'Crema de lúcuma',
+      'Crema de Oreo'
+    ];
+
+    const kekeTypes = [
+      'Keke de vainilla',
+      'Keke de chocolate'
+    ];
+
+    const cartaGrid = document.getElementById('cartaGrid');
+    const cartaDetail = document.getElementById('cartaDetail');
+    const catalogHeaderTitle = document.querySelector('#carta .section-title');
+    const catalogHeaderSub = document.querySelector('#carta .section-sub');
+    const PRODUCT_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=900&q=80&fit=crop';
+    let currentCategory = 'tortas';
+    let activeProductId = cartaItems.find(item => item.category === currentCategory)?.id || cartaItems[0]?.id;
+
+    function getPastelFillings(item) {
+      const text = `${item.name || ''} ${item.description || ''}`.toLowerCase();
+      const options = [];
+      if (text.includes('dulce de leche')) options.push('Dulce de leche');
+      if (text.includes('chocolate')) options.push('Chocolate');
+      return options;
+    }
+
+    function getPostreFamiliarGroup(item) {
+      const name = (item.name || '').toLowerCase();
+      if (name.includes('keke')) return 'Kekes';
+      if (name.includes('pionono')) return 'Piononos';
+      if (name.includes('opera')) return 'Opera';
+      if (name.includes('tres leches')) return 'Tres Leches';
+      if (name.includes('cheesecake')) return 'Cheesecakes';
+      if (name.includes('tarta')) return 'Tartas';
+      return 'Otros';
+    }
+
+    function getAvailabilityMeta(item) {
+      if (item.category !== 'postres-familiares') return null;
+      return item.inStore
+        ? { label: 'Disponible en tienda', className: 'in-store' }
+        : { label: 'Solo por pedido', className: 'order-only' };
+    }
+
+    function renderCarta() {
+      const filtered = cartaItems.filter(item => item.category === currentCategory);
+      if (!filtered.some(item => item.id === activeProductId)) {
+        activeProductId = filtered[0]?.id || cartaItems[0].id;
+      }
+
+      if (currentCategory === 'bocaditos') {
+        const salados = filtered.filter(item => item.kind === 'Salado');
+        const dulces = filtered.filter(item => item.kind === 'Dulce');
+        const buildCards = items => items.map(item => {
+          const priceText = `S/ ${item.priceUnit.toFixed(2)} c/u`;
+          return `
+            <button class="carta-card ${item.id === activeProductId ? 'active' : ''}" data-id="${item.id}">
+              <div class="carta-card-img"><img src="${item.image || PRODUCT_FALLBACK_IMAGE}" alt="${item.name}" loading="lazy" decoding="async"></div>
+              <h3>${item.name}</h3>
+              <p>${item.subtitle}</p>
+              <span class="price">${priceText}</span>
+            </button>
+          `;
+        }).join('');
+
+        cartaGrid.innerHTML = `
+          ${salados.length ? `<div class="carta-group">
+            <h3 class="carta-group-header">Bocaditos Salados</h3>
+            <div class="carta-group-grid">${buildCards(salados)}</div>
+          </div>` : ''}
+          ${dulces.length ? `<div class="carta-group">
+            <h3 class="carta-group-header">Bocaditos Dulces</h3>
+            <div class="carta-group-grid">${buildCards(dulces)}</div>
+          </div>` : ''}
+        `;
+      } else if (currentCategory === 'postres-familiares') {
+        const buildCards = items => items.map(item => {
+          const priceText = `S/ ${Number(item.price || 0).toFixed(2)}`;
+          const availability = getAvailabilityMeta(item);
+          return `
+            <button class="carta-card ${item.id === activeProductId ? 'active' : ''}" data-id="${item.id}">
+              <div class="carta-card-img"><img src="${item.image || PRODUCT_FALLBACK_IMAGE}" alt="${item.name}" loading="lazy" decoding="async"></div>
+              <div class="carta-card-top">
+                <h3>${item.name}</h3>
+                ${availability ? `<span class="availability-badge ${availability.className}">${availability.label}</span>` : ''}
+              </div>
+              <p>${item.subtitle}</p>
+              <span class="price">${priceText}</span>
+            </button>
+          `;
+        }).join('');
+
+        const groupOrder = ['Kekes', 'Piononos', 'Opera', 'Tres Leches', 'Cheesecakes', 'Tartas', 'Otros'];
+        cartaGrid.innerHTML = `<div class="availability-note">
+          <span><strong>Disponible en tienda</strong>: puedes encontrarlo en mostrador.</span>
+          <span><strong>Solo por pedido</strong>: te lo preparamos por encargo.</span>
+        </div>` + groupOrder.map(groupName => {
+          const groupItems = filtered.filter(item => getPostreFamiliarGroup(item) === groupName);
+          if (!groupItems.length) return '';
+          return `<div class="carta-group">
+            <h3 class="carta-group-header">${groupName}</h3>
+            <div class="carta-group-grid">${buildCards(groupItems)}</div>
+          </div>`;
+        }).join('');
+      } else {
+        cartaGrid.innerHTML = filtered.map(item => {
+          const isPastelItem = item.category === 'pasteles';
+          const isPostreFamiliarItem = item.category === 'postres-familiares';
+          const pastelFillings = isPastelItem ? getPastelFillings(item) : [];
+          const priceText = item.category === 'bocaditos'
+            ? `S/ ${item.priceUnit.toFixed(2)} c/u`
+            : isPastelItem
+              ? 'S/ 5.00'
+              : isPostreFamiliarItem
+                ? `S/ ${Number(item.price || 0).toFixed(2)}`
+                : 'Selecciona diámetro';
+          return `
+          <button class="carta-card ${item.id === activeProductId ? 'active' : ''}" data-id="${item.id}">
+            <div class="carta-card-img"><img src="${item.image || PRODUCT_FALLBACK_IMAGE}" alt="${item.name}" loading="lazy" decoding="async"></div>
+            <h3>${item.name}</h3>
+            <p>${item.subtitle}</p>
+            <span class="price">${priceText}</span>
+          </button>
+        `;
+        }).join('');
+      }
+
+      const selected = filtered.find(item => item.id === activeProductId) || filtered[0];
+      if (selected) {
+        const isBocadito = selected.category === 'bocaditos';
+        const isPastel = selected.category === 'pasteles';
+        const isPostreFamiliar = selected.category === 'postres-familiares';
+        const isEspecial = currentCategory === 'especiales';
+        const pastelFillings = isPastel ? getPastelFillings(selected) : [];
+        const pastelFixedPrice = 5;
+        const postrePrice = Number(selected.price || 0);
+        const piononoFillings = selected.name.toLowerCase().includes('pionono') ? (selected.fillings || []) : [];
+        const availability = getAvailabilityMeta(selected);
+        cartaDetail.innerHTML = `
+          <span class="section-eyebrow">Detalle</span>
+          <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;">
+            <div style="flex:1 1 220px;max-width:360px"><img src="${selected.image || PRODUCT_FALLBACK_IMAGE}" alt="${selected.name}" loading="lazy" decoding="async" style="width:100%;border-radius:12px;object-fit:cover"></div>
+            <div style="flex:1 1 260px;">
+              <h3>${selected.name}</h3>
+              ${availability ? `<p><span class="availability-badge ${availability.className}">${availability.label}</span></p>` : ''}
+              <p>${selected.description}</p>
+              ${selected.kind ? `<p style="margin:0 0 8px;font-weight:600;color:var(--brand-gold);">${selected.kind}</p>` : ''}
+              <div class="detail-price" id="selectedPrice">${isBocadito ? `S/ ${selected.priceUnit.toFixed(2)} c/u` : isPastel ? `S/ ${pastelFixedPrice.toFixed(2)}` : isPostreFamiliar ? `S/ ${postrePrice.toFixed(2)}` : 'Selecciona diámetro'}</div>
+              ${isBocadito ? `
+                <p style="margin-top:10px;font-size:14px;color:var(--text-mid)">
+                  Precio por ciento: S/ ${selected.priceHundred.toFixed(2)} · Precio por unidad: S/ ${selected.priceUnit.toFixed(2)}
+                </p>
+                <div style="margin-top:12px">
+                  <label style="display:flex;align-items:center;gap:10px;margin:6px 0; font-size:14px">
+                    Cantidad de unidades
+                    <input id="bocaditoQuantity" type="number" min="1" value="1" step="1" style="width:100px;padding:10px;border:1px solid rgba(16,33,61,.16);border-radius:12px;">
+                  </label>
+                </div>
+              ` : isPastel ? `
+                ${pastelFillings.length ? `
+                  <h4 style="margin-top:12px">Relleno</h4>
+                  <div class="keke-selector">
+                    ${pastelFillings.map((fill, index) => `<label style="display:block;margin:6px 0"><input type="radio" name="pastelFilling" value="${fill}" ${index === 0 ? 'checked' : ''}> ${fill}</label>`).join('')}
+                  </div>
+                  <p style="margin-top:8px;font-size:13px;color:var(--text-mid)">Precio unitario: S/ ${pastelFixedPrice.toFixed(2)}</p>
+                ` : `<p style="margin-top:10px;font-size:14px;color:var(--text-mid)">Precio unitario: S/ ${pastelFixedPrice.toFixed(2)}</p>`}
+              ` : isPostreFamiliar ? `
+                ${piononoFillings.length ? `
+                  <h4 style="margin-top:12px">Relleno</h4>
+                  <ul>${piononoFillings.map(fill => `<li>${fill}</li>`).join('')}</ul>
+                ` : ''}
+                <p style="margin-top:10px;font-size:14px;color:var(--text-mid)">Precio familiar: S/ ${postrePrice.toFixed(2)}</p>
+              ` : `
+                ${isEspecial ? `
+                  <h4>Keke</h4>
+                  <div class="keke-selector">
+                    ${kekeTypes.map((type, index) => `<label style="display:block;margin:6px 0"><input type="radio" name="especialKeke" value="${type}" ${index === 0 ? 'checked' : ''}> ${type}</label>`).join('')}
+                  </div>
+                ` : ''}
+                <h4 style="margin-top:14px">Rellenos</h4>
+                <ul>${(selected.fillings && selected.fillings.length ? selected.fillings.map(f => `<li>${f}</li>`).join('') : `<li>Consulta los rellenos disponibles.</li>`)}</ul>
+                <h4 style="margin-top:12px">Selecciona diámetro</h4>
+                <div class="size-selector">
+                  <label style="display:block;margin:6px 0"><input type="radio" name="tortaSize" value="16" data-price="40" data-min-porciones="6" data-max-porciones="8"> 16 cm — S/40</label>
+                  <label style="display:block;margin:6px 0"><input type="radio" name="tortaSize" value="22" data-price="55" data-min-porciones="10" data-max-porciones="12"> 22 cm — S/55</label>
+                  <label style="display:block;margin:6px 0"><input type="radio" name="tortaSize" value="26" data-price="65" data-min-porciones="15" data-max-porciones="20"> 26 cm — S/65</label>
+                </div>
+                <div id="porcionesSelector" style="margin-top:12px;display:none">
+                  <h4>Porciones</h4>
+                  <div id="porcionesOptions"></div>
+                </div>
+              `}
+
+              <div class="carta-cta" style="margin-top:14px">
+                <button class="btn-primary" id="addCartBtn">Agregar al carrito</button>
+                <a class="btn-outline" id="whatsappDetail" href="#" target="_blank" rel="noopener" style="margin-left:12px">Pedir por WhatsApp</a>
+              </div>
+              ${isEspecial ? `
+                <p class="whatsapp-note">Pedido por WhatsApp: <a href="https://wa.me/51914824785" target="_blank" rel="noopener">+51 914 824 785</a>. También puedes usar el botón verde de WhatsApp en pantalla.</p>
+              ` : ''}
+            </div>
+          </div>
+        `;
+
+        const priceEl = cartaDetail.querySelector('#selectedPrice');
+        const whatsappDetail = cartaDetail.querySelector('#whatsappDetail');
+        const addCartBtn = cartaDetail.querySelector('#addCartBtn');
+
+        function updateSelectedPrice() {
+          if (isBocadito) {
+            const qtyInput = cartaDetail.querySelector('#bocaditoQuantity');
+            const qty = Math.max(1, Number(qtyInput.value) || 1);
+            const total = qty * selected.priceUnit;
+            priceEl.textContent = `S/ ${total.toFixed(2)} (${qty} x S/ ${selected.priceUnit.toFixed(2)})`;
+            addCartBtn.disabled = false;
+            const msg = encodeURIComponent(`Hola, quiero ${qty} unidades de ${selected.name}. Precio total S/ ${total.toFixed(2)}.`);
+            whatsappDetail.href = `https://wa.me/51914824785?text=${msg}`;
+            return;
+          }
+
+          if (isPastel) {
+            const chosen = pastelFillings.length
+              ? (cartaDetail.querySelector('input[name="pastelFilling"]:checked')?.value || pastelFillings[0])
+              : '';
+            priceEl.textContent = `S/ ${pastelFixedPrice.toFixed(2)}`;
+            addCartBtn.disabled = false;
+            const msg = encodeURIComponent(`Hola, quiero ${selected.name}${chosen ? ` con relleno de ${chosen}` : ''}. Precio S/ ${pastelFixedPrice.toFixed(2)}.`);
+            whatsappDetail.href = `https://wa.me/51914824785?text=${msg}`;
+            return;
+          }
+
+          if (isPostreFamiliar) {
+            priceEl.textContent = `S/ ${postrePrice.toFixed(2)}`;
+            addCartBtn.disabled = false;
+            const piononoNote = piononoFillings.length ? ` Relleno: ${piononoFillings.join(', ')}.` : '';
+            const msg = encodeURIComponent(`Hola, quiero ${selected.name}. Precio S/ ${postrePrice.toFixed(2)}.${piononoNote}`);
+            whatsappDetail.href = `https://wa.me/51914824785?text=${msg}`;
+            return;
+          }
+
+          const checked = cartaDetail.querySelector('input[name="tortaSize"]:checked');
+          if (!checked) {
+            priceEl.textContent = 'Selecciona diámetro';
+            addCartBtn.disabled = true;
+            whatsappDetail.href = 'https://wa.me/51914824785';
+            return;
+          }
+          const p = Number(checked.dataset.price);
+          priceEl.textContent = `S/ ${p.toFixed(2)}`;
+          addCartBtn.disabled = false;
+          const selectedKeke = cartaDetail.querySelector('input[name="especialKeke"]:checked')?.value || '';
+          const selectedPorciones = cartaDetail.querySelector('input[name="tortaPorciones"]:checked')?.value || '';
+          const msg = encodeURIComponent(`Hola, quiero la torta ${selected.name} - diámetro ${checked.value}cm${selectedPorciones ? `, ${selectedPorciones} porciones` : ''}${selectedKeke ? `, Keke ${selectedKeke}` : ''}. Precio S/ ${p.toFixed(2)}.`);
+          whatsappDetail.href = `https://wa.me/51914824785?text=${msg}`;
+        }
+
+        if (isBocadito) {
+          const qtyInput = cartaDetail.querySelector('#bocaditoQuantity');
+          qtyInput.addEventListener('input', updateSelectedPrice);
+          updateSelectedPrice();
+        } else if (isPastel) {
+          const fillingInputs = cartaDetail.querySelectorAll('input[name="pastelFilling"]');
+          fillingInputs.forEach(i => i.addEventListener('change', updateSelectedPrice));
+          updateSelectedPrice();
+        } else if (isPostreFamiliar) {
+          updateSelectedPrice();
+        } else {
+          const sizeInputs = cartaDetail.querySelectorAll('input[name="tortaSize"]');
+          const porcionesSelector = cartaDetail.querySelector('#porcionesSelector');
+          const porcionesOptions = cartaDetail.querySelector('#porcionesOptions');
+          
+          const handleSizeChange = () => {
+            const checked = cartaDetail.querySelector('input[name="tortaSize"]:checked');
+            if (checked) {
+              const minPorciones = Number(checked.dataset.minPorciones);
+              const maxPorciones = Number(checked.dataset.maxPorciones);
+              const porcionesHTML = [];
+              for (let p = minPorciones; p <= maxPorciones; p++) {
+                porcionesHTML.push(`<label style="display:inline-block;margin-right:12px;margin:6px 0"><input type="radio" name="tortaPorciones" value="${p}" ${p === minPorciones ? 'checked' : ''}> ${p} porciones</label>`);
+              }
+              porcionesOptions.innerHTML = porcionesHTML.join('');
+              porcionesSelector.style.display = 'block';
+              
+              const porcionesInputs = cartaDetail.querySelectorAll('input[name="tortaPorciones"]');
+              porcionesInputs.forEach(i => i.addEventListener('change', updateSelectedPrice));
+            }
+            updateSelectedPrice();
+          };
+          
+          sizeInputs.forEach(i => i.addEventListener('change', handleSizeChange));
+          updateSelectedPrice();
+        }
+
+        addCartBtn.addEventListener('click', () => {
+          if (isBocadito) {
+            const qtyInput = cartaDetail.querySelector('#bocaditoQuantity');
+            const qty = Math.max(1, Number(qtyInput.value) || 1);
+            addToCart(addCartBtn, {
+              id: selected.id,
+              name: selected.name,
+              subtitle: selected.kind ? `${selected.kind} · ${selected.subtitle}` : selected.subtitle,
+              unitPrice: selected.priceUnit,
+              quantity: qty
+            });
+            return;
+          }
+
+          if (isPastel) {
+            const chosen = pastelFillings.length
+              ? (cartaDetail.querySelector('input[name="pastelFilling"]:checked')?.value || pastelFillings[0])
+              : '';
+            addToCart(addCartBtn, {
+              id: chosen ? `${selected.id}-${chosen.toLowerCase().replace(/[^a-z0-9]+/g, '-')}` : selected.id,
+              name: chosen ? `${selected.name} (${chosen})` : selected.name,
+              subtitle: selected.subtitle,
+              unitPrice: pastelFixedPrice,
+              quantity: 1
+            });
+            return;
+          }
+
+          if (isPostreFamiliar) {
+            addToCart(addCartBtn, {
+              id: selected.id,
+              name: selected.name,
+              subtitle: selected.subtitle,
+              unitPrice: postrePrice,
+              quantity: 1
+            });
+            return;
+          }
+
+          const checked = cartaDetail.querySelector('input[name="tortaSize"]:checked');
+          if (!checked) return;
+          const selectedKeke = cartaDetail.querySelector('input[name="especialKeke"]:checked')?.value || '';
+          const selectedPorciones = cartaDetail.querySelector('input[name="tortaPorciones"]:checked')?.value || '';
+          const price = Number(checked.dataset.price);
+          addToCart(addCartBtn, {
+            id: selected.id + '-' + checked.value + (selectedPorciones ? `-${selectedPorciones}p` : '') + (selectedKeke ? `-${selectedKeke.replace(/[^a-z0-9]+/gi, '-')}` : ''),
+            name: selected.name + ` (${checked.value}cm${selectedPorciones ? `, ${selectedPorciones} porciones` : ''}${selectedKeke ? `, ${selectedKeke}` : ''})`,
+            subtitle: selected.subtitle,
+            unitPrice: price,
+            quantity: 1
+          });
+        });
+      }
+
+      document.querySelectorAll('.carta-card').forEach(card => {
+        card.addEventListener('click', () => {
+          activeProductId = card.getAttribute('data-id');
+          renderCarta();
+        });
+      });
+    }
+
+    function updateCatalogHeader(category) {
+      const labels = {
+        tortas: {
+          title: 'Tortas de vitrina',
+          subtitle: 'Explora nuestras tortas listas para llevar. Elige tu favorita y encarga rápido.'
+        },
+        especiales: {
+          title: 'Tortas especiales',
+          subtitle: 'Ediciones premium y sabores únicos para ocasiones especiales.'
+        },
+        bocaditos: {
+          title: 'Bocaditos',
+          subtitle: 'Delicias pequeñas para eventos, picadas y momentos especiales.'
+        },
+        pasteles: {
+          title: 'Pasteles',
+          subtitle: 'Postres y pasteles para celebrar con estilo.'
+        },
+        'postres-familiares': {
+          title: 'Postres familiares',
+          subtitle: 'Postres ideales para compartir en reuniones y en casa.'
+        }
+      };
+      const info = labels[category] || labels.tortas;
+      if (catalogHeaderTitle) catalogHeaderTitle.textContent = info.title;
+      if (catalogHeaderSub) catalogHeaderSub.textContent = info.subtitle;
+    }
+
+    function scrollToCatalogStart() {
+      const cartaEl = document.getElementById('carta');
+      if (!cartaEl) return;
+      const top = Math.max(0, window.scrollY + cartaEl.getBoundingClientRect().top - 84);
+      window.scrollTo({ top, behavior: 'auto' });
+    }
+
+    renderCarta();
+
+    // ── Categories navigation ─────────────────────────────────────
+    function showCategories() {
+      const categories = document.getElementById('categories');
+      const cartaEl = document.getElementById('carta');
+      if (categories) {
+        categories.classList.remove('hidden');
+      }
+      if (cartaEl) {
+        cartaEl.classList.add('hidden');
+      }
+    }
+
+    function showCatalog(category) {
+      const categories = document.getElementById('categories');
+      const cartaEl = document.getElementById('carta');
+      if (categories) {
+        categories.classList.add('hidden');
+      }
+      if (cartaEl) {
+        cartaEl.classList.remove('hidden');
+      }
+      currentCategory = category;
+      activeProductId = cartaItems.find(item => item.category === currentCategory)?.id || cartaItems[0]?.id;
+      updateCatalogHeader(category);
+      renderCarta();
+      requestAnimationFrame(scrollToCatalogStart);
+    }
+
+    function renderTortasCatalog() {
+      const items = cartaItems.filter(i => i.category === 'tortas');
+      const grid = document.getElementById('cartaGrid');
+      const detail = document.getElementById('cartaDetail');
+      detail.style.display = 'none';
+      grid.innerHTML = items.map(item => `
+        <div class="product-card torta-card-detailed fade-up">
+          <div class="product-img"><img src="${item.image || PRODUCT_FALLBACK_IMAGE}" alt="${item.name}" loading="lazy" decoding="async"></div>
+          <div class="product-body">
+            <h3 class="product-name">${item.name}</h3>
+            <p class="product-desc"><strong>Cobertura:</strong> ${item.coverage || ''}</p>
+            <p class="product-desc"><strong>Rellenos:</strong> ${(item.fillings || []).join(', ') || '—'}</p>
+            <p class="product-desc"><strong>Porciones:</strong> 16cm: 8–10 | 22cm: 12–15 | 26cm: 18–20</p>
+            <div style="margin-top:8px">
+              <label style="margin-right:8px"><input type="radio" name="size-${item.id}" value="16" data-price="40" checked> 16cm S/40</label>
+              <label style="margin-right:8px"><input type="radio" name="size-${item.id}" value="22" data-price="55"> 22cm S/55</label>
+              <label><input type="radio" name="size-${item.id}" value="26" data-price="65"> 26cm S/65</label>
+            </div>
+            <div class="product-footer" style="margin-top:12px">
+              <span class="product-price">Selecciona diámetro</span>
+              <button class="btn-add" data-id="${item.id}">Agregar al carrito</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // wire up size selectors and add buttons
+      items.forEach(item => {
+        const radios = document.getElementsByName(`size-${item.id}`);
+        const card = Array.from(document.querySelectorAll('.torta-card-detailed')).find(c => c.querySelector('.btn-add')?.getAttribute('data-id') === item.id);
+        const priceEl = card.querySelector('.product-price');
+        function updatePrice() {
+          const checked = Array.from(radios).find(r => r.checked);
+          priceEl.textContent = `S/ ${Number(checked.dataset.price).toFixed(2)}`;
+        }
+        radios.forEach(r => r.addEventListener('change', updatePrice));
+        updatePrice();
+        const addBtn = card.querySelector('.btn-add');
+        addBtn.addEventListener('click', () => {
+          const checked = Array.from(radios).find(r => r.checked);
+          const price = Number(checked.dataset.price);
+          addToCart(addBtn, { id: item.id + '-' + checked.value, name: item.name + ` (${checked.value}cm)`, subtitle: item.subtitle, price: price });
+        });
+      });
+    }
+
+    // wire category cards
+    document.querySelectorAll('.category-card[data-category]').forEach(card => {
+      card.addEventListener('click', () => showCatalog(card.dataset.category));
+    });
+    const backToCategories = document.getElementById('backToCategories');
+    if (backToCategories) {
+      backToCategories.addEventListener('click', showCategories);
+    }
+    // show categories initially
+    showCategories();
+
+    // ── Cart counter ───────────────────────────────────────────────
+    let cartCount = 0;
+    const badge = document.querySelector('.cart-badge');
+    const cartPanel = document.getElementById('cartPanel');
+    const cartBackdrop = document.getElementById('cartBackdrop');
+    const cartItemsContainer = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    const closeCartButton = document.getElementById('closeCart');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const secureCheckoutBtn = document.getElementById('secureCheckoutBtn');
+    const paymentStatus = document.getElementById('paymentStatus');
+    let cartProducts = [];
+
+    const PAYMENT_API_URL = 'http://localhost:8787/api/payments/create';
+
+    function renderCart() {
+      const total = cartProducts.reduce((sum, item) => sum + (item.unitPrice || item.price || 0) * item.quantity, 0);
+      cartTotal.textContent = `S/ ${total.toFixed(2)}`;
+      if (!cartProducts.length) {
+        cartItemsContainer.innerHTML = '<p class="cart-empty">Tu carrito está vacío. Agrega tortas, bocaditos o postres y confirma tu pedido por WhatsApp.</p>';
+        checkoutBtn.classList.add('disabled');
+        secureCheckoutBtn?.classList.add('disabled');
+        checkoutBtn.href = 'https://wa.me/51914824785?text=Hola%2C%20quiero%20hacer%20un%20pedido%20en%20Benelli%20Per%C3%BA';
+        if (paymentStatus) paymentStatus.textContent = '';
+        return;
+      }
+      cartItemsContainer.innerHTML = cartProducts.map((item, index) => {
+        const unitPrice = item.unitPrice || item.price || 0;
+        const subtotal = unitPrice * item.quantity;
+        return `
+        <div class="cart-item">
+          <h4>${item.name}</h4>
+          <span><small>${item.subtitle}</small><strong>S/ ${subtotal.toFixed(2)}</strong></span>
+          <span>Cantidad: ${item.quantity}</span>
+          <span><button type="button" onclick="removeFromCart(${index})" style="background:none;border:none;color:var(--navy);font-weight:700;cursor:pointer;padding:0;">Eliminar</button></span>
+        </div>
+      `;
+      }).join('');
+      const productList = cartProducts.map(item => `${item.quantity}x ${item.name}`).join(', ');
+      const encoded = encodeURIComponent(`Hola, quiero hacer un pedido: ${productList}. Total S/ ${total.toFixed(2)}`);
+      checkoutBtn.href = `https://wa.me/51914824785?text=${encoded}`;
+      checkoutBtn.classList.remove('disabled');
+      secureCheckoutBtn?.classList.remove('disabled');
+    }
+
+    function buildPaymentPayload(total) {
+      return {
+        currency: 'PEN',
+        total: Number(total.toFixed(2)),
+        source: 'web-benelli-sandbox',
+        items: cartProducts.map(item => ({
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity,
+          unitPrice: Number((item.unitPrice || item.price || 0).toFixed(2))
+        }))
+      };
+    }
+
+    async function startSecureCheckout() {
+      if (!cartProducts.length) return;
+      const total = cartProducts.reduce((sum, item) => sum + (item.unitPrice || item.price || 0) * item.quantity, 0);
+      const payload = buildPaymentPayload(total);
+      if (paymentStatus) paymentStatus.textContent = 'Creando enlace de pago seguro...';
+      secureCheckoutBtn?.classList.add('disabled');
+
+      try {
+        const response = await fetch(PAYMENT_API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error('No se pudo crear el checkout');
+        const data = await response.json();
+        if (!data.checkoutUrl) throw new Error('Respuesta sin checkoutUrl');
+
+        if (paymentStatus) paymentStatus.textContent = 'Redirigiendo al checkout seguro...';
+        window.open(data.checkoutUrl, '_blank', 'noopener');
+      } catch (error) {
+        if (paymentStatus) {
+          paymentStatus.textContent = 'Modo prueba sin backend activo. Usa WhatsApp por ahora; luego conectamos cuenta real.';
+        }
+      } finally {
+        if (cartProducts.length) secureCheckoutBtn?.classList.remove('disabled');
+      }
+    }
+
+    function openCart() {
+      cartPanel.classList.add('open');
+      cartBackdrop.classList.add('visible');
+    }
+
+    function closeCart() {
+      cartPanel.classList.remove('open');
+      cartBackdrop.classList.remove('visible');
+    }
+
+    function addToCart(btn, itemData) {
+      if (!itemData) {
+        const card = btn.closest('.product-card');
+        const name = card?.querySelector('.product-name')?.textContent.trim() || 'Producto';
+        const subtitle = card?.querySelector('.product-desc')?.textContent.trim() || '';
+        const priceText = card?.querySelector('.product-price')?.textContent || '0';
+        const price = parseFloat(priceText.replace(/[^\d.]/g, '')) || 0;
+        const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        itemData = {
+          id: `product-${slug}`,
+          name,
+          subtitle,
+          price
+        };
+      }
+      const quantity = Math.max(1, Number(itemData?.quantity) || 1);
+      const priceValue = typeof itemData.unitPrice === 'number'
+        ? itemData.unitPrice
+        : typeof itemData.price === 'number'
+          ? itemData.price
+          : parseFloat(String(itemData.price || itemData.unitPrice).replace(/[^\d.]/g, '')) || 0;
+      cartCount += quantity;
+      badge.textContent = cartCount;
+      const existing = cartProducts.find(item => item.id === itemData.id);
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        cartProducts.push({ ...itemData, quantity, unitPrice: priceValue });
+      }
+      renderCart();
+      openCart();
+      btn.textContent = '✓ Agregado';
+      btn.style.background = '#2A5C3A';
+      setTimeout(() => {
+        btn.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4"/><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg> Agregar`;
+        btn.style.background = '';
+      }, 1500);
+    }
+
+    function removeFromCart(index) {
+      const removed = cartProducts.splice(index, 1)[0];
+      cartCount -= removed.quantity;
+      badge.textContent = Math.max(cartCount, 0);
+      renderCart();
+    }
+
+    closeCartButton.addEventListener('click', closeCart);
+    cartBackdrop.addEventListener('click', closeCart);
+    document.querySelector('.nav-cart').addEventListener('click', openCart);
+    secureCheckoutBtn?.addEventListener('click', startSecureCheckout);
+
+    renderCart();
+
+    // ── Oven countdown ─────────────────────────────────────────────
+    const batches = [7*60, 10*60, 13*60, 16*60+30, 19*60];
+    function updateOven() {
+      const now = new Date();
+      const min = now.getHours() * 60 + now.getMinutes();
+      const sec = now.getSeconds();
+      let next = batches.find(b => b > min);
+      if (!next) next = batches[0] + 24*60; 
+      const diffMin = next - min;
+      const h = Math.floor(diffMin / 60);
+      const m = diffMin % 60;
+      const s = 59 - sec;
+      document.getElementById('countdown').textContent =
+        (h > 0 ? h + 'h ' : '') + String(m).padStart(2,'0') + 'm ' + String(s).padStart(2,'0') + 's';
+      const msgs = [
+        'El pan está subiendo en el horno 🍞',
+        'Encendiendo el horno ahora mismo 🔥',
+        'El aroma ya viene del fondo 😍',
+        'La masa está lista para entrar al horno',
+      ];
+      const ovenMsgElement = document.getElementById('ovenMsg');
+      if (ovenMsgElement) {
+        ovenMsgElement.textContent = msgs[Math.floor(Date.now()/8000) % msgs.length];
+      }
+    }
+    updateOven();
+    setInterval(updateOven, 1000);
+
+    // ── Smooth active nav on scroll ────────────────────────────────
+    const sections = document.querySelectorAll('section[id], section#proceso-masa-madre');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 100) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+      });
+    }, { passive: true });
+
+    // ── Lógica Interactiva del Acordeón ────────────────────────────
+    function activarPanel(elementoHover) {
+      const paneles = document.querySelectorAll('.acordeon-panel');
+      paneles.forEach(panel => {
+        panel.classList.remove('active');
+      });
+      elementoHover.classList.add('active');
+    }
+  </script>
+</body>
+</html>
