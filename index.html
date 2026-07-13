@@ -140,37 +140,20 @@
       pointer-events: none;
       z-index: 2;
     }
-    .splash-logo {
-      width: 110px; height: 110px; border-radius: 50%;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(201,168,76,0.35);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif; font-size: 48px; color: var(--brand-gold);
-      margin: 0 auto 24px;
-      position: relative;
-      box-shadow: inset 0 0 22px rgba(255,255,255,0.08), 0 0 30px rgba(201,168,76,0.32);
-    }
-    .splash-logo::before {
-      content: '';
-      position: absolute;
-      inset: -12px;
+    .splash-seal {
+      width: min(220px, 44vw);
+      margin: 0 auto 34px;
+      padding: 10px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,.45) 0%, rgba(201,168,76,0.08) 35%, transparent 65%);
-      filter: blur(12px);
-      z-index: -1;
+      background: radial-gradient(circle, rgba(245, 231, 207, 0.16) 0%, rgba(245, 231, 207, 0.03) 62%, transparent 78%);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+      opacity: 0.98;
     }
-    .splash-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px; font-weight: 700; color: var(--white);
-      letter-spacing: 2px;
-      margin-bottom: 6px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
-    }
-    .splash-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: 12px; font-style: italic; color: var(--gold);
-      letter-spacing: 6px; text-transform: uppercase;
-      margin-bottom: 40px;
+    .splash-seal img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
     }
     .splash-loader {
       width: 46px; height: 46px;
@@ -195,14 +178,23 @@
     }
     .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .nav-logo {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--brand-navy); display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--white); flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,.18);
+      width: 48px; height: 48px; border-radius: 16px;
+      background: #ece1d3; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+      border: 1px solid rgba(22,56,97,.14);
     }
-    .nav-name { display: flex; flex-direction: column; line-height: 1.2; }
-    .nav-name strong { font-family: 'Playfair Display', serif; font-size: 17px; color: var(--brand-dark); font-weight: 700; }
-    .nav-name span { font-size: 11px; color: var(--brand-gold); letter-spacing: .08em; text-transform: uppercase; font-weight: 500; }
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .nav-name { display: flex; align-items: center; line-height: 1; }
+    .nav-wordmark {
+      display: block;
+      height: 34px;
+      width: auto;
+    }
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a { text-decoration: none; font-size: 14px; font-weight: 600; color: var(--text-dark); transition: color .2s, border-bottom .2s; padding-bottom: 4px; }
     .nav-links a:hover, .nav-links a.active { color: var(--brand-navy); border-bottom: 2px solid var(--brand-gold); }
@@ -519,9 +511,10 @@
     footer { background: var(--navy); padding: 56px 5% 32px; color: rgba(255,255,255,.6); }
     .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; margin-bottom: 48px; }
     .footer-brand { flex: 1 1 240px; }
-    .footer-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .footer-logo { width: 38px; height: 38px; border-radius: 50%; background: rgba(201,168,76,.2); border: 1px solid rgba(201,168,76,.3); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 16px; color: var(--gold); }
-    .footer-name { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--white); font-weight: 700; }
+    .footer-logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .footer-logo { width: 54px; height: 54px; border-radius: 18px; background: #ece1d3; border: 1px solid rgba(201,168,76,.3); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .footer-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .footer-wordmark { display: block; width: min(260px, 70vw); height: auto; }
     .footer-tagline { font-size: 13px; line-height: 1.7; margin-bottom: 20px; font-weight: 300; }
     .footer-col { flex: 1 1 160px; }
     .footer-col h4 { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
@@ -572,9 +565,8 @@
       body { font-size: 15px; }
       nav { height: 62px; padding: 0 16px; }
       .nav-brand { gap: 8px; }
-      .nav-logo { width: 38px; height: 38px; font-size: 15px; }
-      .nav-name strong { font-size: 15px; }
-      .nav-name span { font-size: 10px; }
+      .nav-logo { width: 40px; height: 40px; }
+      .nav-wordmark { height: 28px; }
       #hero { min-height: auto; }
       .hero-content { padding: 100px 5% 60px; }
       .hero-title { font-size: clamp(30px, 8vw, 44px); }
@@ -643,9 +635,7 @@
     </div>
     <div class="splash-overlay"></div>
     <div class="splash-frame">
-      <div class="splash-logo">B</div>
-      <h2 class="splash-text">Benelli Perú</h2>
-      <div class="splash-sub">Arte al Horno</div>
+      <div class="splash-seal"><img src="carta/sello-benelli.jpg" alt="Sello Benelli" /></div>
       <div class="splash-loader"></div>
     </div>
   </div>
@@ -653,10 +643,9 @@
   <!-- ─── NAV ─────────────────────────────────────────────────────── -->
   <nav>
     <a href="#" class="nav-brand">
-      <div class="nav-logo">B</div>
+      <div class="nav-logo"><img src="carta/isotipo-benelli.jpg" alt="Isotipo Benelli" /></div>
       <div class="nav-name">
-        <strong>Benelli Perú</strong>
-        <span>Manos al Horno</span>
+        <img class="nav-wordmark" src="carta/logo-benelli.jpg" alt="Benelli Manos al Horno" />
       </div>
     </a>
     <ul class="nav-links">
@@ -936,8 +925,8 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <div class="footer-logo-row">
-          <div class="footer-logo">B</div>
-          <span class="footer-name">Benelli Perú</span>
+          <div class="footer-logo"><img src="carta/isotipo-benelli.jpg" alt="Isotipo Benelli" /></div>
+          <img class="footer-wordmark" src="carta/logo-benelli.jpg" alt="Benelli Manos al Horno" />
         </div>
         <p class="footer-tagline">Panadería y pastelería artesanal desde 2011. Recetas de familia, sabor de siempre, entregado con cariño en Lima.</p>
       </div>
